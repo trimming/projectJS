@@ -1,0 +1,28 @@
+.b-feedbackBlock__form {
+    display: flex;
+    justify-content: center;
+
+
+    input {
+        @include kitProp(#222224, 400);
+        opacity: 0.67;
+        background: #E1E1E1;
+        box-sizing: border-box;
+        background-size: cover;
+        border: none;
+        padding: 10px 22px 10px 22px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+    }
+
+    button {
+        @include kitProp(#FFFFFF, 400);
+        text-decoration: none;
+        background: #E05C6E;
+        padding: 10px 22px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px;
+        display: block;
+        border: none;
+    }
+}

@@ -1,0 +1,49 @@
+.b-hiddenMenu {
+    background: #FFFFFF;
+    width: 232px;
+    padding-left: 33px;
+    box-sizing: border-box;
+    height: 100%;
+    box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
+
+    &__close {
+        display: flex;
+        justify-content: end;
+        padding-right: 16px;
+        padding-top: 16px;
+    }
+
+    &__heading {
+        @include kitProp(#000000, 700);
+    }
+
+    &__list {
+        list-style-type: none;
+        padding-left: 21px;
+
+        li {
+            padding-bottom: 11px;
+        }
+    }
+
+    &__item {
+        text-decoration: none;
+        @include kitProp(#6F6E6E, 400);
+    }
+
+    &__category {
+        padding-bottom: 12px;
+        padding-top: 20px;
+        @include kitProp($colorPink, 400);
+    }
+
+    &_active {
+        position: absolute;
+        top: 0;
+        right: 0;
+
+        @media (max-width: 1599px) {
+            display: none;
+        }
+    }
+}

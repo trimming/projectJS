@@ -1,0 +1,25 @@
+.b-footer__social {
+    display: flex;
+
+    @media (max-width: 667px) {
+        flex-grow: 1;
+        padding-top: 43px;
+    }
+
+    &Icon {
+        background: #FFFFFF;
+        text-decoration: none;
+        box-sizing: border-box;
+        margin-right: 7px;
+        width: 32px;
+        height: 32px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition-duration: 0.5s;
+
+        &:hover {
+            transform: scale(1.5, 1.5);
+        }
+    }
+}
