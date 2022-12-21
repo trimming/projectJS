@@ -61,6 +61,7 @@ class GoodList {
     constructor(goods, container) {
         this._goods = goods;
         this._$goodsListContainer = container;
+        //this._total = total;
     }
     renderGoodsList() {
         let goodsList = this._goods.map(
@@ -68,19 +69,24 @@ class GoodList {
         ).join('');
         this._$goodsListContainer.insertAdjacentHTML('beforeend', goodsList);
     }
+    // getTotal() {
+    //     this._goods.forEach(good => {
+
+    //     });
+    // }
 }
 
 
 const list = new GoodList([
-    new Good("images/card_1.png", "Product 01", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
-    new Good("images/card_7.jpg", "Product 02", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "65.00"),
-    new Good("images/card_3.png", "Product 03", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "47.50"),
-    new Good("images/card_4.png", "Product 04", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "82.00"),
-    new Good("images/card_8.jpg", "Product 05", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "58.00"),
-    new Good("images/card_9.jpg", "Product 06", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "99.99"),
-    new Good("images/card_10.jpg", "Product 07", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "112.00"),
-    new Good("images/card_11.jpg", "Product 08", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
-    new Good("images/card_12.jpg", "Product 09", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
+    new Good({ image: "images/card_1.png", title: "Product 01", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "52.00" }),
+    new Good({ image: "images/card_7.jpg", title: "Product 02", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "65.00" }),
+    new Good({ image: "images/card_3.png", title: "Product 03", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "47.50" }),
+    new Good({ image: "images/card_4.png", title: "Product 04", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "82.00" }),
+    new Good({ image: "images/card_8.jpg", title: "Product 05", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "58.00" }),
+    new Good({ image: "images/card_9.jpg", title: "Product 06", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "99.99" }),
+    new Good({ image: "images/card_10.jpg", title: "Product 07", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "112.00" }),
+    new Good({ image: "images/card_11.jpg", title: "Product 08", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "52.00" }),
+    new Good({ image: "images/card_12.jpg", title: "Product 09", text: "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", price: "52.00" }),
 ], document.querySelector('.filter__cards'));
 
 const cart = new GoodList([
