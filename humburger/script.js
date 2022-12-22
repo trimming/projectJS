@@ -26,3 +26,39 @@ class Hamburger {
 
     } // Узнать калорийность }
 }
+
+class Size {
+    constructor(price, calories) {
+        this._price = price;
+        this._calories = calories;
+    }
+}
+let small = {
+    price: 50,
+    calories: 20,
+}
+let big = {
+    price: 100,
+    calories: 40,
+}
+let withCheese = {
+    price: 10,
+    calories: 20,
+}
+let withSalad = {
+    price: 20,
+    calories: 5,
+}
+let withPotato = {
+    price: 15,
+    calories: 10,
+}
+let paprika = {
+    price: 15,
+    calories: 0,
+}
+let mayonnaise = {
+    price: 20,
+    calories: 5,
+}
+userHumburger = 
