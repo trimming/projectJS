@@ -1,17 +1,27 @@
 'use strict';
 class Hamburger {
-    constructor(size, stuffing, topping) {
+    constructor(size, stuffing) {
         this._size = size;
         this._stuffing = stuffing;
+
     }
     addTopping(topping) {
-
+        this._topping = topping;
     } // Добавить добавку }
     removeTopping(topping) {
-
+        let userToppings = this._topping.map(el => {
+            if (el._price !== topping.price) {
+                el._name = '';
+            }
+        }, Hamburger);
+        console.log(userToppings);
     } // Убрать добавку }
-    getToppings(topping) {
-
+    getToppings() {
+        let listToppings = '';
+        this._topping.forEach(topping => {
+            listToppings += topping._name;
+        });
+        return listToppings;
     } // Получить список добавок }
     getSize() {
         return this._size._name;
@@ -27,20 +37,14 @@ class Hamburger {
     } // Узнать калорийность }
 }
 
-class Size {
+class Composition {
     constructor({ price, calories, name }) {
         this._price = price;
         this._calories = calories;
         this._name = name;
     }
 }
-class Stuffing {
-    constructor({ price, calories, name }) {
-        this._price = price;
-        this._calories = calories;
-        this._name = name;
-    }
-}
+
 let small = {
     price: 50,
     calories: 20,
@@ -69,17 +73,25 @@ let withPotato = {
 let paprika = {
     price: 15,
     calories: 0,
+    name: ' посыпан приправой',
 }
-let mayonnaise = {
+let mayonaise = {
     price: 20,
     calories: 5,
+    name: ' полит майонезом',
 }
-let sizeHumburger = new Size(big);
-console.log(sizeHumburger);
-let stuffingHumburger = new Stuffing(withPotato);
-console.log(stuffingHumburger);
+let sizeHumburger = new Composition(big);
+
+let stuffingHumburger = new Composition(withPotato);
+
+let toppingHumburger = [new Composition(paprika), new Composition(mayonaise)];
+
 let userHumburger = new Hamburger(sizeHumburger, stuffingHumburger);
+
+userHumburger.addTopping(toppingHumburger);
 console.log(userHumburger);
 console.log(userHumburger.calculatePrice());
 console.log(userHumburger.calculateCalories());
-console.log(`${userHumburger.getSize()} ${userHumburger.getStuffing()}`);
+console.log(`${userHumburger.getSize()} ${userHumburger.getStuffing()} ${userHumburger.getToppings()}`);
+userHumburger.removeTopping(mayonaise);
+console.log(`${userHumburger.getSize()} ${userHumburger.getStuffing()} ${userHumburger.getToppings()}`);
