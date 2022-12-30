@@ -1,20 +1,25 @@
 'use strict';
 class Hamburger {
-    constructor(size, stuffing) {
+    constructor(size, stuffing, topping) {
         this._size = size;
         this._stuffing = stuffing;
-
+        this._topping = [];
     }
     addTopping(topping) {
         this._topping = topping;
     } // Добавить добавку }
     removeTopping(topping) {
-        let userToppings = this._topping.map(el => {
-            if (el._price !== topping.price) {
-                el._name = '';
+        if (!Array.isArray(topping)) {
+            let index;
+            for (let i = 0; i < this._topping.length; i++) {
+                if (this._topping[i]._name === topping._name) {
+                    index = i;
+                }
             }
-        }, Hamburger);
-        console.log(userToppings);
+            this._topping.splice(index, 1);
+        } else {
+            this._topping = [];
+        }
     } // Убрать добавку }
     getToppings() {
         let listToppings = '';
@@ -30,10 +35,22 @@ class Hamburger {
         return this._stuffing._name;
     } // Узнать начинку гамбургера }
     calculatePrice() {
-        return this._size._price + this._stuffing._price;
+        let toppingPrice = 0;
+        if (this._topping != []) {
+            this._topping.forEach(topping => {
+                toppingPrice += topping._price;
+            });
+        }
+        return this._size._price + this._stuffing._price + toppingPrice;
     } // Узнать цену }
     calculateCalories() {
-        return this._size._calories + this._stuffing._calories;
+        let toppingCalories = 0;
+        if (this._topping != []) {
+            this._topping.forEach(topping => {
+                toppingCalories += topping._calories;
+            });
+        }
+        return this._size._calories + this._stuffing._calories + toppingCalories;
     } // Узнать калорийность }
 }
 
@@ -90,8 +107,8 @@ let userHumburger = new Hamburger(sizeHumburger, stuffingHumburger);
 
 userHumburger.addTopping(toppingHumburger);
 console.log(userHumburger);
+console.log(`${userHumburger.getSize()} ${userHumburger.getStuffing()} ${userHumburger.getToppings()}`);
+userHumburger.removeTopping(toppingHumburger[0]);
+console.log(`${userHumburger.getSize()} ${userHumburger.getStuffing()} ${userHumburger.getToppings()}`);
 console.log(userHumburger.calculatePrice());
 console.log(userHumburger.calculateCalories());
-console.log(`${userHumburger.getSize()} ${userHumburger.getStuffing()} ${userHumburger.getToppings()}`);
-userHumburger.removeTopping(mayonaise);
-console.log(`${userHumburger.getSize()} ${userHumburger.getStuffing()} ${userHumburger.getToppings()}`);
