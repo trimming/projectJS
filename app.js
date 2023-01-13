@@ -1,6 +1,6 @@
 'use strict';
 class Good {
-    constructor(image, title, text, price) {
+    constructor({ image, title, text, price }) {
         this._image = image;
         this._title = title;
         this._text = text;
@@ -59,12 +59,14 @@ class GoodInCart extends Good {
 }
 
 class GoodList {
-    constructor(goods, container, total) {
-        this._goods = goods;
+    constructor(container) {
+        this._goods = [];
         this._$goodsListContainer = container;
         this._total = 0;
     }
-
+    add(good) {
+        this._goods.push(good);
+    }
     renderGoodsList() {
         let goodsList = this._goods.map(
             good =>
@@ -83,6 +85,22 @@ class GoodList {
 
 const list = new GoodList(document.querySelector('.filter__cards'));
 
+fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.json')
+    .then((response) => {
+        return response.json();
+    })
+    .then((response) => {
+        response.forEach((newGood) => {
+            list.add(new Good(newGood));
+        });
+        list.renderGoodsList();
+        list.getTotal();
+
+    })
+    .catch((err) => {
+        alert('ошибка');
+    })
+
 const cart = new GoodList([
     new GoodInCart('', "Product 01", '', "52.00"),
     new GoodInCart('', "Product 02", '', "65.00"),
@@ -96,7 +114,6 @@ const cart = new GoodList([
 
 ], document.querySelector('.b-menu__cartProduct'));
 
-list.renderGoodsList();
-list.getTotal();
 cart.renderGoodsList();
 cart.getTotal();
+
