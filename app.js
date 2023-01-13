@@ -81,17 +81,7 @@ class GoodList {
 }
 
 
-const list = new GoodList([
-    new Good("images/card_1.png", "Product 01", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
-    new Good("images/card_7.jpg", "Product 02", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "65.00"),
-    new Good("images/card_3.png", "Product 03", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "47.50"),
-    new Good("images/card_4.png", "Product 04", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "82.00"),
-    new Good("images/card_8.jpg", "Product 05", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "58.00"),
-    new Good("images/card_9.jpg", "Product 06", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "99.99"),
-    new Good("images/card_10.jpg", "Product 07", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "112.00"),
-    new Good("images/card_11.jpg", "Product 08", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
-    new Good("images/card_12.jpg", "Product 09", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
-], document.querySelector('.filter__cards'));
+const list = new GoodList(document.querySelector('.filter__cards'));
 
 const cart = new GoodList([
     new GoodInCart('', "Product 01", '', "52.00"),
