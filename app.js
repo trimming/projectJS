@@ -30,10 +30,8 @@ class Good {
 }
 
 class GoodInCart extends Good {
-    constructor(image, title, text, price, quantity = 1) {
-        super(image, title, text, price);
-
-
+    constructor({ _image: image, _title: title, _text: text, _price: price }, quantity = 1) {
+        super({ image, title, text, price });
         this._quantity = quantity;
     }
     getPrice() {
@@ -67,6 +65,9 @@ class GoodList {
     add(good) {
         this._goods.push(good);
     }
+    remove(index) {
+        this._goods.splice(index, 1);
+    }
     renderGoodsList() {
         let goodsList = this._goods.map(
             good =>
@@ -82,8 +83,9 @@ class GoodList {
     }
 }
 
-
 const list = new GoodList(document.querySelector('.filter__cards'));
+const cart = new GoodList(document.querySelector('.b-menu__cartProduct'));
+
 
 fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.json')
     .then((response) => {
@@ -97,23 +99,27 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
         list.getTotal();
 
     })
+    .then(() => {
+        list._goods.forEach((newGoodInCart) => {
+            cart.add(new GoodInCart(newGoodInCart));
+        });
+        cart.renderGoodsList();
+        console.log(cart._goods);
+
+    })
+    .then(() => {
+        let indexGood = 1;
+        cart._goods.forEach(goodInCart => {
+            if (cart._goods.indexOf(goodInCart) === indexGood) {
+                cart.remove(indexGood);
+            }
+        });
+        console.log(cart._goods);
+    })
     .catch((err) => {
         alert('ошибка');
     })
 
-const cart = new GoodList([
-    new GoodInCart('', "Product 01", '', "52.00"),
-    new GoodInCart('', "Product 02", '', "65.00"),
-    new GoodInCart('', "Product 03", '', "47.50"),
-    new GoodInCart('', "Product 04", '', "82.00"),
-    new GoodInCart('', "Product 05", '', "58.00"),
-    new GoodInCart('', "Product 06", '', "99.99"),
-    new GoodInCart('', "Product 07", '', "112.00"),
-    new GoodInCart('', "Product 08", '', "52.00"),
-    new GoodInCart('', "Product 09", '', "52.00"),
 
-], document.querySelector('.b-menu__cartProduct'));
 
-cart.renderGoodsList();
-cart.getTotal();
 
