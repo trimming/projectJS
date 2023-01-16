@@ -232,6 +232,12 @@
   border-bottom: 0.5px solid #6F6E6E;
 }
 
+.b-menu__cartItem .productClose {
+  height: 16px;
+  width: 16px;
+  margin-bottom: -5px;
+}
+
 .b-menu__cart_active {
   display: block;
 }

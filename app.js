@@ -51,8 +51,20 @@ class GoodInCart extends Good {
         <div>
             <span>$</span>
             <span class = "productMulti" type = "${this._title}" >{product.multi}</span>                    
+        </div>
+        <div>
+        <img class = "productClose" src="images/close.svg">
         </div>    
     </div>`;
+    }
+    rerender(title) {
+        let goodsInCart = document.querySelectorAll('.productName');
+        goodsInCart.forEach(good => {
+            if (good.innerText === title) {
+                console.log(good.innerText);
+                good.parentElement.remove();
+            }
+        });
     }
 }
 
@@ -65,8 +77,13 @@ class GoodList {
     add(good) {
         this._goods.push(good);
     }
-    remove(index) {
-        this._goods.splice(index, 1);
+    remove(title) {
+
+        this._goods.forEach((good) => {
+            if (good._title === title) {
+                good.rerender(good._title);
+            }
+        });
     }
     renderGoodsList() {
         let goodsList = this._goods.map(
@@ -108,13 +125,20 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
 
     })
     .then(() => {
-        let indexGood = 1;
-        cart._goods.forEach(goodInCart => {
-            if (cart._goods.indexOf(goodInCart) === indexGood) {
-                cart.remove(indexGood);
-            }
+        // let titleGood;
+        // cart._goods.forEach(goodInCart => {
+        //     if (cart._goods.indexOf(goodInCart) === indexGood) {
+        //         cart.remove(indexGood);
+        //     }
+        // });
+        // console.log(cart._goods);
+        let allGoodsInCart = document.querySelectorAll('.productClose');
+        allGoodsInCart.forEach((good) => {
+            good.addEventListener('click', (event))
         });
-        console.log(cart._goods);
+
+        // cart.remove(titleGood);
+
     })
     .catch((err) => {
         alert('ошибка');
