@@ -14,8 +14,8 @@ class Good {
     <div class="b-card__wrap">
         <img class="b-card__img" src=${this._image} alt="model">
         <div class="b-card__wrapBtn">
-            <button class="b-card__button" data-type=${this._title}><img src="images/cart.svg"
-                    data-type=${this._title} alt="cart">Add
+            <button class="b-card__button" data-type="${this._title}"><img src="images/cart.svg"
+                    data-type="${this._title}" alt="cart">Add
                 to
                 Cart</button>
         </div>
@@ -51,17 +51,14 @@ class GoodInCart extends Good {
         <div>
             <span>$</span>
             <span class = "productMulti" type = "${this._title}" >{product.multi}</span>                    
-        </div>
-        <div>
-        <img class = "productClose" src="images/close.svg">
-        </div>    
+        </div>        
+        <img class = "productClose" src="images/close.svg">        
     </div>`;
     }
     rerender(title) {
         let goodsInCart = document.querySelectorAll('.productName');
         goodsInCart.forEach(good => {
             if (good.innerText === title) {
-                console.log(good.innerText);
                 good.parentElement.remove();
             }
         });
@@ -75,10 +72,11 @@ class GoodList {
         this._total = 0;
     }
     add(good) {
+
         this._goods.push(good);
+
     }
     remove(title) {
-
         this._goods.forEach((good) => {
             if (good._title === title) {
                 good.rerender(good._title);
@@ -117,27 +115,31 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
 
     })
     .then(() => {
-        list._goods.forEach((newGoodInCart) => {
-            cart.add(new GoodInCart(newGoodInCart));
-        });
-        cart.renderGoodsList();
-        console.log(cart._goods);
+        let getAllButtonsFromCards = document.querySelectorAll('.b-card__button');
+        let getUserProduct;
+        getAllButtonsFromCards.forEach((button) => {
+            button.addEventListener('click', (event) => {
+                getUserProduct = event.target.getAttribute('data-type');
+                list._goods.forEach((newGoodInCart) => {
 
+                    if (newGoodInCart._title == getUserProduct) {
+                        cart.add(new GoodInCart(newGoodInCart));
+                        cart.renderGoodsList();
+                    }
+                });
+            });
+        });
     })
     .then(() => {
-        // let titleGood;
-        // cart._goods.forEach(goodInCart => {
-        //     if (cart._goods.indexOf(goodInCart) === indexGood) {
-        //         cart.remove(indexGood);
-        //     }
-        // });
-        // console.log(cart._goods);
+        let titleGood;
         let allGoodsInCart = document.querySelectorAll('.productClose');
         allGoodsInCart.forEach((good) => {
-            good.addEventListener('click', (event))
+            good.addEventListener('click', (event) => {
+                titleGood = event.target.parentElement.children[0].innerText;
+                console.log(titleGood);
+                cart.remove(titleGood);
+            });
         });
-
-        // cart.remove(titleGood);
 
     })
     .catch((err) => {

@@ -235,7 +235,9 @@
 .b-menu__cartItem .productClose {
   height: 16px;
   width: 16px;
-  margin-bottom: -5px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
 }
 
 .b-menu__cart_active {
