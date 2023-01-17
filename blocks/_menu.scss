@@ -59,7 +59,6 @@
         padding: 3px 6px;
         top: -5px;
         right: -15px;
-
     }
 
     &__cart {
@@ -75,7 +74,7 @@
         font-weight: 300;
         box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
         z-index: 1;
-        display: block;
+        display: none;
 
         &Wrap {
             display: flex;

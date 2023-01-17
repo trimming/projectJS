@@ -1,4 +1,11 @@
 'use strict';
+//Счетчик товаров в корзине.
+const cartCountEl = document.querySelector('.b-menu__quantityCart');
+//Иконка корзины в верхнем меню.
+const openCartEl = document.querySelector('.b-menu__rightCart');
+//Список товаров в корзине, которые выбрал пользователь.
+const cartListEl = document.querySelector('.b-menu__cart');
+
 class Good {
     constructor({ image, title, text, price }) {
         this._image = image;
@@ -72,9 +79,7 @@ class GoodList {
         this._total = 0;
     }
     add(good) {
-
         this._goods.push(good);
-
     }
     remove(title) {
         this._goods.forEach((good) => {
@@ -116,19 +121,46 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
     })
     .then(() => {
         let getAllButtonsFromCards = document.querySelectorAll('.b-card__button');
-        let getUserProduct;
-        getAllButtonsFromCards.forEach((button) => {
-            button.addEventListener('click', (event) => {
-                getUserProduct = event.target.getAttribute('data-type');
-                list._goods.forEach((newGoodInCart) => {
 
-                    if (newGoodInCart._title == getUserProduct) {
-                        cart.add(new GoodInCart(newGoodInCart));
-                        cart.renderGoodsList();
-                    }
-                });
-            });
+        getAllButtonsFromCards.forEach((button) => {
+            button.addEventListener('click', addedProduct);
         });
+
+        function addedProduct(event) {
+            const productTittle = event.target.getAttribute('data-type');
+            addedProductToCart(productTittle);
+        }
+        function addedProductToCart(productTittle) {
+            changeCartCount();
+            addProductToUserCart(productTittle);
+            renderProductInCart(productTittle);
+        }
+
+        openCartEl.addEventListener('click', () => {
+            cartListEl.classList.add('b-menu__cart_active')
+        });
+
+        function changeCartCount() {
+            cartCountEl.style.background = '#F16D7F';
+            cartCountEl.textContent++;
+        }
+        let userCart = {};
+        function addProductToUserCart(productTittle) {
+            if (!(productTittle in userCart)) {
+                userCart[productTittle] = 1;
+            } else {
+                userCart[productTittle]++;
+            }
+        }
+        //     list._goods.forEach((newGoodInCart) => {
+
+        //         if (newGoodInCart._title == getUserProduct) {
+        //             cart.add(new GoodInCart(newGoodInCart));
+        //             cart.renderGoodsList();
+        //         }
+        //     });
+        // });
+        // });
     })
     .then(() => {
         let titleGood;
