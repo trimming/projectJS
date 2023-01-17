@@ -1,10 +1,12 @@
 'use strict';
+
 //Счетчик товаров в корзине.
 const cartCountEl = document.querySelector('.b-menu__quantityCart');
 //Иконка корзины в верхнем меню.
 const openCartEl = document.querySelector('.b-menu__rightCart');
 //Список товаров в корзине, которые выбрал пользователь.
 const cartListEl = document.querySelector('.b-menu__cart');
+
 
 class Good {
     constructor({ image, title, text, price }) {
@@ -37,7 +39,7 @@ class Good {
 }
 
 class GoodInCart extends Good {
-    constructor({ _image: image, _title: title, _text: text, _price: price }, quantity = 1) {
+    constructor({ image: image, title: title, text: text, price: price }, quantity = 1) {
         super({ image, title, text, price });
         this._quantity = quantity;
     }
@@ -45,22 +47,23 @@ class GoodInCart extends Good {
         return this._price * this._quantity;
     }
     render() {
-        return `<div class = "b-menu__cartItem">
-        <span class="productName">${this._title}</span>
-        <div>
-            <span id = "${this._title}" class = "productQuantity">${this._quantity}</span>
-            <span>шт.</span>
-        </div>   
-        <div>
-            <span>$</span>
-            <span class = "productPrice">${this._price}</span>                    
-        </div>    
-        <div>
-            <span>$</span>
-            <span class = "productMulti" type = "${this._title}" >{product.multi}</span>                    
-        </div>        
-        <img class = "productClose" src="images/close.svg">        
-    </div>`;
+        return `
+        <div class = "b-menu__cartItem">
+            <span class="productName" id = "${this._title}">${this._title}</span>
+            <div>
+                <span id = "${this._title}" class = "productQuantity">${this._quantity}</span>
+                <span>шт.</span>
+            </div>   
+            <div>
+                <span>$</span>
+                <span class = "productPrice">${this._price}</span>                    
+            </div>    
+            <div>
+                <span>$</span>
+                <span class = "productMulti" type = "${this._title}" >{product.multi}</span>                    
+            </div>        
+            <img class = "productClose" src="images/close.svg">        
+        </div>`;
     }
     rerender(title) {
         let goodsInCart = document.querySelectorAll('.productName');
@@ -79,7 +82,15 @@ class GoodList {
         this._total = 0;
     }
     add(good) {
-        this._goods.push(good);
+        if (this._goods.length == 0) {
+            this._goods.push(good);
+        } else {
+            this._goods.forEach((element) => {
+                if (good.title != element._title) {
+                    this._goods.push(good);
+                }
+            });
+        }
     }
     remove(title) {
         this._goods.forEach((good) => {
@@ -112,55 +123,109 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
         return response.json();
     })
     .then((response) => {
+
         response.forEach((newGood) => {
             list.add(new Good(newGood));
         });
+
         list.renderGoodsList();
         list.getTotal();
 
-    })
-    .then(() => {
-        let getAllButtonsFromCards = document.querySelectorAll('.b-card__button');
-
+        const getAllButtonsFromCards = document.querySelectorAll('.b-card__button');
         getAllButtonsFromCards.forEach((button) => {
-            button.addEventListener('click', addedProduct);
+            button.addEventListener('click', (event) => {
+                const productTitle = event.target.getAttribute('data-type');
+                addedProductToCart(productTitle);
+            });
         });
 
-        function addedProduct(event) {
-            const productTittle = event.target.getAttribute('data-type');
-            addedProductToCart(productTittle);
-        }
-        function addedProductToCart(productTittle) {
+        function addedProductToCart(productTitle) {
             changeCartCount();
-            addProductToUserCart(productTittle);
-            renderProductInCart(productTittle);
+            addProductToUserCart(productTitle);
+            renderProductInCart(productTitle);
         }
-
-        openCartEl.addEventListener('click', () => {
-            cartListEl.classList.add('b-menu__cart_active')
-        });
 
         function changeCartCount() {
             cartCountEl.style.background = '#F16D7F';
             cartCountEl.textContent++;
         }
+
         let userCart = {};
-        function addProductToUserCart(productTittle) {
-            if (!(productTittle in userCart)) {
-                userCart[productTittle] = 1;
+        function addProductToUserCart(productTitle) {
+            if (!(productTitle in userCart)) {
+                userCart[productTitle] = 1;
             } else {
-                userCart[productTittle]++;
+                userCart[productTitle]++;
             }
         }
-        //     list._goods.forEach((newGoodInCart) => {
 
-        //         if (newGoodInCart._title == getUserProduct) {
-        //             cart.add(new GoodInCart(newGoodInCart));
-        //             cart.renderGoodsList();
-        //         }
-        //     });
+        function renderProductInCart(productTitle) {
+            let productInCart = document.querySelector(`.productName[id = "${productTitle}"]`);
+            if (productInCart) {
+                changeProductQuantity(productTitle);
+                getSumForProduct(productTitle);
+            } else {
+                renderNewProductInCart(productTitle);
+            }
+        }
+
+        function renderNewProductInCart(productTitle) {
+            response.forEach((newGoodInCart) => {
+                if (newGoodInCart.title === productTitle) {
+                    cart.add(new GoodInCart(newGoodInCart));
+                }
+            });
+            cart.renderGoodsList();
+        }
+
+        function changeProductQuantity(productTitle) {
+
+        }
+    })
+    .then(() => {
+
+        // getAllButtonsFromCards.forEach((button) => {
+        //     button.addEventListener('click', addedProduct);
         // });
-        // });
+
+        // function addedProduct(event) {
+        //     const productTitle = event.target.getAttribute('data-type');
+        //     addedProductToCart(productTitle);
+        // }
+        // function addedProductToCart(productTitle) {
+        //     changeCartCount();
+        //     addProductToUserCart(productTitle);
+        //     renderProductInCart(productTitle);
+        // }
+
+        openCartEl.addEventListener('click', () => {
+            cartListEl.classList.toggle('b-menu__cart_active')
+        });
+
+        // function changeCartCount() {
+        //     cartCountEl.style.background = '#F16D7F';
+        //     cartCountEl.textContent++;
+        // }
+
+        // let userCart = {};
+        // function addProductToUserCart(productTitle) {
+        //     if (!(productTitle in userCart)) {
+        //         userCart[productTitle] = 1;
+        //     } else {
+        //         userCart[productTitle]++;
+        //     }
+        // }
+
+        // function renderProductInCart(productTitle) {
+        //     let productInCart = document.querySelector('.b-menu__cartItem');
+        //     if (productInCart) {
+        //         changeCartCount(productTitle);
+        //         getSumForProduct(productTitle);
+        //     } else {
+        //         // 
+        //         cart.renderGoodsList();
+        //     }
+        // }
     })
     .then(() => {
         let titleGood;
