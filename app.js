@@ -39,12 +39,16 @@ class Good {
 }
 
 class GoodInCart extends Good {
-    constructor({ image: image, title: title, text: text, price: price }, quantity = 1) {
+    constructor({ image, title, text, price }, quantity = 1) {
         super({ image, title, text, price });
         this._quantity = quantity;
     }
     getPrice() {
         return this._price * this._quantity;
+    }
+    changeQuantity(productTitle) {
+        return this._quantity++;
+
     }
     render() {
         return `
@@ -82,15 +86,9 @@ class GoodList {
         this._total = 0;
     }
     add(good) {
-        if (this._goods.length == 0) {
-            this._goods.push(good);
-        } else {
-            this._goods.forEach((element) => {
-                if (good.title != element._title) {
-                    this._goods.push(good);
-                }
-            });
-        }
+
+        this._goods.push(good);
+
     }
     remove(title) {
         this._goods.forEach((good) => {
@@ -99,11 +97,13 @@ class GoodList {
             }
         });
     }
-    renderGoodsList() {
+    renderGoodsList(productTitle) {
         let goodsList = this._goods.map(
-            good =>
-                good.render()
-        ).join('');
+            (good) => {
+                if (!(good._quantity) || productTitle === good._title) {
+                    return good.render()
+                } else good.changeQuantity(productTitle);
+            }).join('');
         this._$goodsListContainer.insertAdjacentHTML('beforeend', goodsList);
     }
     getTotal() {
@@ -163,7 +163,7 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
             let productInCart = document.querySelector(`.productName[id = "${productTitle}"]`);
             if (productInCart) {
                 changeProductQuantity(productTitle);
-                getSumForProduct(productTitle);
+                // getSumForProduct(productTitle);
             } else {
                 renderNewProductInCart(productTitle);
             }
@@ -171,11 +171,13 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
 
         function renderNewProductInCart(productTitle) {
             response.forEach((newGoodInCart) => {
+
                 if (newGoodInCart.title === productTitle) {
                     cart.add(new GoodInCart(newGoodInCart));
                 }
             });
-            cart.renderGoodsList();
+            cart.renderGoodsList(productTitle);
+
         }
 
         function changeProductQuantity(productTitle) {
@@ -184,48 +186,12 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
     })
     .then(() => {
 
-        // getAllButtonsFromCards.forEach((button) => {
-        //     button.addEventListener('click', addedProduct);
-        // });
-
-        // function addedProduct(event) {
-        //     const productTitle = event.target.getAttribute('data-type');
-        //     addedProductToCart(productTitle);
-        // }
-        // function addedProductToCart(productTitle) {
-        //     changeCartCount();
-        //     addProductToUserCart(productTitle);
-        //     renderProductInCart(productTitle);
-        // }
 
         openCartEl.addEventListener('click', () => {
             cartListEl.classList.toggle('b-menu__cart_active')
         });
 
-        // function changeCartCount() {
-        //     cartCountEl.style.background = '#F16D7F';
-        //     cartCountEl.textContent++;
-        // }
 
-        // let userCart = {};
-        // function addProductToUserCart(productTitle) {
-        //     if (!(productTitle in userCart)) {
-        //         userCart[productTitle] = 1;
-        //     } else {
-        //         userCart[productTitle]++;
-        //     }
-        // }
-
-        // function renderProductInCart(productTitle) {
-        //     let productInCart = document.querySelector('.b-menu__cartItem');
-        //     if (productInCart) {
-        //         changeCartCount(productTitle);
-        //         getSumForProduct(productTitle);
-        //     } else {
-        //         // 
-        //         cart.renderGoodsList();
-        //     }
-        // }
     })
     .then(() => {
         let titleGood;
