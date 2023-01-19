@@ -178,6 +178,7 @@
 .b-menu__rightCart img {
   height: 29px;
   width: 32px;
+  cursor: pointer;
 }
 
 .b-menu__quantityCart {
@@ -197,7 +198,7 @@
 .b-menu__cart {
   position: absolute;
   background: white;
-  width: 450px;
+  width: 550px;
   right: 0;
   top: 35px;
   padding: 10px;
@@ -238,6 +239,7 @@
   -ms-flex-item-align: center;
       -ms-grid-row-align: center;
       align-self: center;
+  cursor: pointer;
 }
 
 .b-menu__cart_active {

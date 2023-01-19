@@ -3,9 +3,11 @@
 //Счетчик товаров в корзине.
 const cartCountEl = document.querySelector('.b-menu__quantityCart');
 //Иконка корзины в верхнем меню.
-const openCartEl = document.querySelector('.b-menu__rightCart');
+const openCartEl = document.querySelector('.b-menu__rightCartIcon');
 //Список товаров в корзине, которые выбрал пользователь.
 const cartListEl = document.querySelector('.b-menu__cart');
+//Общая стоимость товаров в корзине.
+const cartTotalEl = document.querySelector('.cartTotal');
 
 
 class Good {
@@ -66,7 +68,7 @@ class GoodInCart extends Good {
                 <span>$</span>
                 <span class = "productMulti" type = "${this._title}" >${this._price}</span>                    
             </div>        
-            <img class = "productClose" src="images/close.svg">        
+            <img class = "productClose" src="images/trash.png">        
         </div>`;
     }
     rerender(title) {
@@ -143,6 +145,7 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
             changeCartCount();
             addProductToUserCart(productTitle);
             renderProductInCart(productTitle);
+            addTotalPriceProducts();
         }
 
         function changeCartCount() {
@@ -190,6 +193,18 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
             const productPriceEl = document.querySelector(`.productPrice[id = "${productTitle}"]`);
             let productTotalPrice = (userCart[productTitle] * productPriceEl.textContent).toFixed(2);
             productTotalEl.textContent = productTotalPrice;
+
+        }
+        function addTotalPriceProducts() {
+            const productsTotalPriceEl = document.querySelectorAll('.productMulti');
+            let total = 0;
+            productsTotalPriceEl.forEach((totalPrice) => {
+                total += Number(totalPrice.innerHTML);
+
+            });
+
+            cartTotalEl.textContent = total;
+
         }
     })
     .then(() => {

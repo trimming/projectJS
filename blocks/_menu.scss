@@ -43,6 +43,7 @@
             img {
                 height: 29px;
                 width: 32px;
+                cursor: pointer;
             }
         }
     }
@@ -64,7 +65,7 @@
     &__cart {
         position: absolute;
         background: white;
-        width: 450px;
+        width: 550px;
         right: 0;
         top: 35px;
         padding: 10px;
@@ -92,6 +93,7 @@
                 height: 16px;
                 width: 16px;
                 align-self: center;
+                cursor: pointer;
             }
         }
     }
