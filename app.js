@@ -60,11 +60,11 @@ class GoodInCart extends Good {
             </div>   
             <div>
                 <span>$</span>
-                <span class = "productPrice">${this._price}</span>                    
+                <span class = "productPrice" id = "${this._title}">${this._price}</span>                    
             </div>    
             <div>
                 <span>$</span>
-                <span class = "productMulti" type = "${this._title}" >{product.multi}</span>                    
+                <span class = "productMulti" type = "${this._title}" >${this._price}</span>                    
             </div>        
             <img class = "productClose" src="images/close.svg">        
         </div>`;
@@ -163,7 +163,7 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
             let productInCart = document.querySelector(`.productName[id = "${productTitle}"]`);
             if (productInCart) {
                 changeProductQuantity(productTitle);
-                // getSumForProduct(productTitle);
+                getSumForProduct(productTitle);
             } else {
                 renderNewProductInCart(productTitle);
             }
@@ -181,7 +181,15 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
         }
 
         function changeProductQuantity(productTitle) {
+            const productQuantityEl = document.querySelector(`.productQuantity[id = "${productTitle}"]`);
+            productQuantityEl.textContent++;
+        }
 
+        function getSumForProduct(productTitle) {
+            const productTotalEl = document.querySelector(`.productMulti[type = "${productTitle}"]`);
+            const productPriceEl = document.querySelector(`.productPrice[id = "${productTitle}"]`);
+            let productTotalPrice = (userCart[productTitle] * productPriceEl.textContent).toFixed(2);
+            productTotalEl.textContent = productTotalPrice;
         }
     })
     .then(() => {
