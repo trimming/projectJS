@@ -1,6 +1,17 @@
 'use strict';
+
+//Счетчик товаров в корзине.
+const cartCountEl = document.querySelector('.b-menu__quantityCart');
+//Иконка корзины в верхнем меню.
+const openCartEl = document.querySelector('.b-menu__rightCartIcon');
+//Список товаров в корзине, которые выбрал пользователь.
+const cartListEl = document.querySelector('.b-menu__cart');
+//Общая стоимость товаров в корзине.
+const cartTotalEl = document.querySelector('.cartTotal');
+
+
 class Good {
-    constructor(image, title, text, price) {
+    constructor({ image, title, text, price }) {
         this._image = image;
         this._title = title;
         this._text = text;
@@ -14,8 +25,8 @@ class Good {
     <div class="b-card__wrap">
         <img class="b-card__img" src=${this._image} alt="model">
         <div class="b-card__wrapBtn">
-            <button class="b-card__button" data-type=${this._title}><img src="images/cart.svg"
-                    data-type=${this._title} alt="cart">Add
+            <button class="b-card__button" data-type="${this._title}"><img src="images/cart.svg"
+                    data-type="${this._title}" alt="cart">Add
                 to
                 Cart</button>
         </div>
@@ -30,46 +41,71 @@ class Good {
 }
 
 class GoodInCart extends Good {
-    constructor(image, title, text, price, quantity = 1) {
-        super(image, title, text, price);
-
-
+    constructor({ image, title, text, price }, quantity = 1) {
+        super({ image, title, text, price });
         this._quantity = quantity;
     }
     getPrice() {
         return this._price * this._quantity;
     }
+    changeQuantity(productTitle) {
+        return this._quantity++;
+
+    }
     render() {
-        return `<div class = "b-menu__cartItem">
-        <span class="productName">${this._title}</span>
-        <div>
-            <span id = "${this._title}" class = "productQuantity">${this._quantity}</span>
-            <span>шт.</span>
-        </div>   
-        <div>
-            <span>$</span>
-            <span class = "productPrice">${this._price}</span>                    
-        </div>    
-        <div>
-            <span>$</span>
-            <span class = "productMulti" type = "${this._title}" >{product.multi}</span>                    
-        </div>    
-    </div>`;
+        return `
+        <div class = "b-menu__cartItem">
+            <span class="productName" id = "${this._title}">${this._title}</span>
+            <div>
+                <span id = "${this._title}" class = "productQuantity">${this._quantity}</span>
+                <span>шт.</span>
+            </div>   
+            <div>
+                <span>$</span>
+                <span class = "productPrice" id = "${this._title}">${this._price}</span>                    
+            </div>    
+            <div>
+                <span>$</span>
+                <span class = "productMulti" type = "${this._title}" >${this._price}</span>                    
+            </div>        
+            <img class = "productClose" src="images/trash.png">        
+        </div>`;
+    }
+    rerender(title) {
+        let goodsInCart = document.querySelectorAll('.productName');
+        goodsInCart.forEach(good => {
+            if (good.innerText === title) {
+                good.parentElement.remove();
+            }
+        });
     }
 }
 
 class GoodList {
-    constructor(goods, container, total) {
-        this._goods = goods;
+    constructor(container) {
+        this._goods = [];
         this._$goodsListContainer = container;
         this._total = 0;
     }
+    add(good) {
 
-    renderGoodsList() {
+        this._goods.push(good);
+
+    }
+    remove(title) {
+        this._goods.forEach((good) => {
+            if (good._title === title) {
+                good.rerender(good._title);
+            }
+        });
+    }
+    renderGoodsList(productTitle) {
         let goodsList = this._goods.map(
-            good =>
-                good.render()
-        ).join('');
+            (good) => {
+                if (!(good._quantity) || productTitle === good._title) {
+                    return good.render()
+                } else good.changeQuantity(productTitle);
+            }).join('');
         this._$goodsListContainer.insertAdjacentHTML('beforeend', goodsList);
     }
     getTotal() {
@@ -80,33 +116,122 @@ class GoodList {
     }
 }
 
+const list = new GoodList(document.querySelector('.filter__cards'));
+const cart = new GoodList(document.querySelector('.b-menu__cartProduct'));
 
-const list = new GoodList([
-    new Good("images/card_1.png", "Product 01", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
-    new Good("images/card_7.jpg", "Product 02", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "65.00"),
-    new Good("images/card_3.png", "Product 03", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "47.50"),
-    new Good("images/card_4.png", "Product 04", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "82.00"),
-    new Good("images/card_8.jpg", "Product 05", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "58.00"),
-    new Good("images/card_9.jpg", "Product 06", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "99.99"),
-    new Good("images/card_10.jpg", "Product 07", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "112.00"),
-    new Good("images/card_11.jpg", "Product 08", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
-    new Good("images/card_12.jpg", "Product 09", "Known for her sculptural takes on traditional tailoring, Australian arbiter of cool Kym Ellery teams up with Moda Operandi.", "52.00"),
-], document.querySelector('.filter__cards'));
 
-const cart = new GoodList([
-    new GoodInCart('', "Product 01", '', "52.00"),
-    new GoodInCart('', "Product 02", '', "65.00"),
-    new GoodInCart('', "Product 03", '', "47.50"),
-    new GoodInCart('', "Product 04", '', "82.00"),
-    new GoodInCart('', "Product 05", '', "58.00"),
-    new GoodInCart('', "Product 06", '', "99.99"),
-    new GoodInCart('', "Product 07", '', "112.00"),
-    new GoodInCart('', "Product 08", '', "52.00"),
-    new GoodInCart('', "Product 09", '', "52.00"),
+fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.json')
+    .then((response) => {
+        return response.json();
+    })
+    .then((response) => {
 
-], document.querySelector('.b-menu__cartProduct'));
+        response.forEach((newGood) => {
+            list.add(new Good(newGood));
+        });
 
-list.renderGoodsList();
-list.getTotal();
-cart.renderGoodsList();
-cart.getTotal();
+        list.renderGoodsList();
+        list.getTotal();
+
+        const getAllButtonsFromCards = document.querySelectorAll('.b-card__button');
+        getAllButtonsFromCards.forEach((button) => {
+            button.addEventListener('click', (event) => {
+                const productTitle = event.target.getAttribute('data-type');
+                addedProductToCart(productTitle);
+            });
+        });
+
+        function addedProductToCart(productTitle) {
+            changeCartCount();
+            addProductToUserCart(productTitle);
+            renderProductInCart(productTitle);
+            addTotalPriceProducts();
+        }
+
+        function changeCartCount() {
+            cartCountEl.style.background = '#F16D7F';
+            cartCountEl.textContent++;
+        }
+
+        let userCart = {};
+        function addProductToUserCart(productTitle) {
+            if (!(productTitle in userCart)) {
+                userCart[productTitle] = 1;
+            } else {
+                userCart[productTitle]++;
+            }
+        }
+
+        function renderProductInCart(productTitle) {
+            let productInCart = document.querySelector(`.productName[id = "${productTitle}"]`);
+            if (productInCart) {
+                changeProductQuantity(productTitle);
+                getSumForProduct(productTitle);
+            } else {
+                renderNewProductInCart(productTitle);
+            }
+        }
+
+        function renderNewProductInCart(productTitle) {
+            response.forEach((newGoodInCart) => {
+
+                if (newGoodInCart.title === productTitle) {
+                    cart.add(new GoodInCart(newGoodInCart));
+                }
+            });
+            cart.renderGoodsList(productTitle);
+
+        }
+
+        function changeProductQuantity(productTitle) {
+            const productQuantityEl = document.querySelector(`.productQuantity[id = "${productTitle}"]`);
+            productQuantityEl.textContent++;
+        }
+
+        function getSumForProduct(productTitle) {
+            const productTotalEl = document.querySelector(`.productMulti[type = "${productTitle}"]`);
+            const productPriceEl = document.querySelector(`.productPrice[id = "${productTitle}"]`);
+            let productTotalPrice = (userCart[productTitle] * productPriceEl.textContent).toFixed(2);
+            productTotalEl.textContent = productTotalPrice;
+
+        }
+        function addTotalPriceProducts() {
+            const productsTotalPriceEl = document.querySelectorAll('.productMulti');
+            let total = 0;
+            productsTotalPriceEl.forEach((totalPrice) => {
+                total += Number(totalPrice.innerHTML);
+
+            });
+
+            cartTotalEl.textContent = total;
+
+        }
+    })
+    .then(() => {
+
+
+        openCartEl.addEventListener('click', () => {
+            cartListEl.classList.toggle('b-menu__cart_active')
+        });
+
+
+    })
+    .then(() => {
+        let titleGood;
+        let allGoodsInCart = document.querySelectorAll('.productClose');
+        allGoodsInCart.forEach((good) => {
+            good.addEventListener('click', (event) => {
+                titleGood = event.target.parentElement.children[0].innerText;
+                console.log(titleGood);
+                cart.remove(titleGood);
+            });
+        });
+
+    })
+    .catch((err) => {
+        alert('ошибка');
+    })
+
+
+
+

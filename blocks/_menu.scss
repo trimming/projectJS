@@ -43,6 +43,7 @@
             img {
                 height: 29px;
                 width: 32px;
+                cursor: pointer;
             }
         }
     }
@@ -59,13 +60,12 @@
         padding: 3px 6px;
         top: -5px;
         right: -15px;
-
     }
 
     &__cart {
         position: absolute;
         background: white;
-        width: 450px;
+        width: 550px;
         right: 0;
         top: 35px;
         padding: 10px;
@@ -75,7 +75,7 @@
         font-weight: 300;
         box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
         z-index: 1;
-        display: block;
+        display: none;
 
         &Wrap {
             display: flex;
@@ -88,6 +88,13 @@
             display: flex;
             justify-content: space-between;
             border-bottom: 0.5px solid #6F6E6E;
+
+            .productClose {
+                height: 16px;
+                width: 16px;
+                align-self: center;
+                cursor: pointer;
+            }
         }
     }
 

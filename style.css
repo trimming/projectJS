@@ -178,6 +178,7 @@
 .b-menu__rightCart img {
   height: 29px;
   width: 32px;
+  cursor: pointer;
 }
 
 .b-menu__quantityCart {
@@ -197,7 +198,7 @@
 .b-menu__cart {
   position: absolute;
   background: white;
-  width: 450px;
+  width: 550px;
   right: 0;
   top: 35px;
   padding: 10px;
@@ -208,7 +209,7 @@
   -webkit-box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
           box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
   z-index: 1;
-  display: block;
+  display: none;
 }
 
 .b-menu__cartWrap {
@@ -230,6 +231,15 @@
       -ms-flex-pack: justify;
           justify-content: space-between;
   border-bottom: 0.5px solid #6F6E6E;
+}
+
+.b-menu__cartItem .productClose {
+  height: 16px;
+  width: 16px;
+  -ms-flex-item-align: center;
+      -ms-grid-row-align: center;
+      align-self: center;
+  cursor: pointer;
 }
 
 .b-menu__cart_active {
