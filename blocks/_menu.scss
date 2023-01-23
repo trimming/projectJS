@@ -12,6 +12,17 @@
         align-items: end;
         justify-content: space-between;
         width: 111px;
+
+        .goods-search {
+            align-self: center;
+            margin-left: 20px;
+            margin-right: 5px;
+        }
+
+        .search-button {
+            background-color: #222222;
+            border: none;
+        }
     }
 
     &__right {

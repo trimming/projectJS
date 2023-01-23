@@ -8,6 +8,10 @@ const openCartEl = document.querySelector('.b-menu__rightCartIcon');
 const cartListEl = document.querySelector('.b-menu__cart');
 //Общая стоимость товаров в корзине.
 const cartTotalEl = document.querySelector('.cartTotal');
+//Кнопка поиска товаров по каталогу.
+const searchBtnEl = document.querySelector('.search-button');
+//Поле ввода поиска по сайту.
+const searchInput = document.querySelector('.goods-search');
 
 
 class Good {
@@ -84,13 +88,14 @@ class GoodInCart extends Good {
 class GoodList {
     constructor(container) {
         this._goods = [];
+        this._filteredGoods = [];
         this._$goodsListContainer = container;
         this._total = 0;
     }
     add(good) {
 
         this._goods.push(good);
-
+        this._filteredGoods.push(good);
     }
     remove(title) {
         this._goods.forEach((good) => {
@@ -100,13 +105,20 @@ class GoodList {
         });
     }
     renderGoodsList(productTitle) {
-        let goodsList = this._goods.map(
+        this._$goodsListContainer.textContent = '';
+        let goodsList = this._filteredGoods.map(
             (good) => {
                 if (!(good._quantity) || productTitle === good._title) {
                     return good.render()
                 } else good.changeQuantity(productTitle);
             }).join('');
         this._$goodsListContainer.insertAdjacentHTML('beforeend', goodsList);
+    }
+    filter(value) {
+        let regExp = new RegExp(value, 'i');
+        this._filteredGoods = this._goods.filter(good =>
+            regExp.test(good._title));
+        this.renderGoodsList();
     }
     getTotal() {
         this._goods.forEach(good => {
@@ -232,6 +244,8 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
         alert('ошибка');
     })
 
-
+searchBtnEl.addEventListener('click', () => {
+    list.filter(searchInput.value);
+});
 
 
