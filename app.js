@@ -101,7 +101,9 @@ class GoodList {
         this._filteredGoods.push(good);
     }
     remove(title) {
-        this._goods.forEach((good) => {
+        console.log(this._goods)
+        console.log(this._filteredGoods)
+        this._filteredGoods.forEach((good) => {
             if (good.title === title) {
                 good.rerender(good.title);
             }
@@ -174,6 +176,7 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
                 addProductToUserCart(productTitle);
                 renderProductInCart(productTitle);
                 addTotalPriceProducts();
+                removeGoodToCart();
             }
             /**
              * Функция меняет фон счетчика товаров в корзине и увеличивает его при клике.
@@ -243,29 +246,32 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
              */
             function addTotalPriceProducts() {
                 const productsTotalPriceEl = document.querySelectorAll('.productMulti');
+
                 let total = 0;
                 productsTotalPriceEl.forEach((totalPrice) => {
                     total += Number(totalPrice.innerHTML);
                 });
                 cartTotalEl.textContent = total;
             }
+            function removeGoodToCart() {
+                const allGoodsInCart = document.querySelectorAll('.productClose');
+                allGoodsInCart.forEach((good) => {
+                    good.addEventListener('click', (event) => {
+                        let titleGood = event.target.parentElement.children[0].innerText;
+                        console.log(titleGood);
+                        cart.remove(titleGood);
+                    });
+                });
+            }
+
         }
 
+
         addGoodInCart();
+
         searchBtnEl.addEventListener('click', () => {
             list.filter(searchInput.value);
             addGoodInCart();
-        });
-    })
-    .then(() => {
-        let titleGood;
-        let allGoodsInCart = document.querySelectorAll('.productClose');
-        allGoodsInCart.forEach((good) => {
-            good.addEventListener('click', (event) => {
-                titleGood = event.target.parentElement.children[0].innerText;
-                console.log(titleGood);
-                cart.remove(titleGood);
-            });
         });
 
     })
