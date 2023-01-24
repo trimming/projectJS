@@ -16,29 +16,29 @@ const searchInput = document.querySelector('.goods-search');
 
 class Good {
     constructor({ image, title, text, price }) {
-        this._image = image;
-        this._title = title;
-        this._text = text;
-        this._price = price;
+        this.image = image;
+        this.title = title;
+        this.text = text;
+        this.price = price;
     }
     getPrice() {
-        return this._price;
+        return this.price;
     }
     render() {
         return `<div class="b-card">
     <div class="b-card__wrap">
-        <img class="b-card__img" src=${this._image} alt="model">
+        <img class="b-card__img" src=${this.image} alt="model">
         <div class="b-card__wrapBtn">
-            <button class="b-card__button" data-type="${this._title}"><img src="images/cart.svg"
-                    data-type="${this._title}" alt="cart">Add
+            <button class="b-card__button" data-type="${this.title}"><img src="images/cart.svg"
+                    data-type="${this.title}" alt="cart">Add
                 to
                 Cart</button>
         </div>
     </div>
     <div class="b-card__info">
-        <h4 class="b-card__infoItem">${this._title}</h4>
-        <p class="b-card__infoText">${this._text}</p>
-        <p class="b-card__infoPrice">$<span class="b-card__price">${this._price}</span></p>
+        <h4 class="b-card__infoItem">${this.title}</h4>
+        <p class="b-card__infoText">${this.text}</p>
+        <p class="b-card__infoPrice">$<span class="b-ard__price">${this.price}</span></p>
     </div>
 </div>`;
     }
@@ -47,30 +47,30 @@ class Good {
 class GoodInCart extends Good {
     constructor({ image, title, text, price }, quantity = 1) {
         super({ image, title, text, price });
-        this._quantity = quantity;
+        this.quantity = quantity;
     }
     getPrice() {
-        return this._price * this._quantity;
+        return this.price * this.quantity;
     }
-    changeQuantity(productTitle) {
-        return this._quantity++;
+    changeQuantity() {
+        return this.quantity++;
 
     }
     render() {
         return `
         <div class = "b-menu__cartItem">
-            <span class="productName" id = "${this._title}">${this._title}</span>
+            <span class="productName" id = "${this.title}">${this.title}</span>
             <div>
-                <span id = "${this._title}" class = "productQuantity">${this._quantity}</span>
+                <span id = "${this.title}" class = "productQuantity">${this.quantity}</span>
                 <span>шт.</span>
             </div>   
             <div>
                 <span>$</span>
-                <span class = "productPrice" id = "${this._title}">${this._price}</span>                    
+                <span class = "productPrice" id = "${this.title}">${this.price}</span>                    
             </div>    
             <div>
                 <span>$</span>
-                <span class = "productMulti" type = "${this._title}" >${this._price}</span>                    
+                <span class = "productMulti" type = "${this.title}" >${this.price}</span>                    
             </div>        
             <img class = "productClose" src="images/trash.png">        
         </div>`;
@@ -92,6 +92,9 @@ class GoodList {
         this._$goodsListContainer = container;
         this._total = 0;
     }
+    getGoods() {
+        return this._goods;
+    }
     add(good) {
 
         this._goods.push(good);
@@ -99,16 +102,18 @@ class GoodList {
     }
     remove(title) {
         this._goods.forEach((good) => {
-            if (good._title === title) {
-                good.rerender(good._title);
+            if (good.title === title) {
+                good.rerender(good.title);
             }
         });
     }
     renderGoodsList(productTitle) {
-        this._$goodsListContainer.textContent = '';
+        if (!productTitle) {
+            this._$goodsListContainer.textContent = '';
+        }
         let goodsList = this._filteredGoods.map(
             (good) => {
-                if (!(good._quantity) || productTitle === good._title) {
+                if (!(good.quantity) || productTitle === good.title) {
                     return good.render()
                 } else good.changeQuantity(productTitle);
             }).join('');
@@ -117,12 +122,12 @@ class GoodList {
     filter(value) {
         let regExp = new RegExp(value, 'i');
         this._filteredGoods = this._goods.filter(good =>
-            regExp.test(good._title));
+            regExp.test(good.title));
         this.renderGoodsList();
     }
     getTotal() {
         this._goods.forEach(good => {
-            this._total += +good._price;
+            this._total += +good.price;
         });
         console.log(this._total);
     }
@@ -145,88 +150,112 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
         list.renderGoodsList();
         list.getTotal();
 
-        const getAllButtonsFromCards = document.querySelectorAll('.b-card__button');
-        getAllButtonsFromCards.forEach((button) => {
-            button.addEventListener('click', (event) => {
-                const productTitle = event.target.getAttribute('data-type');
-                addedProductToCart(productTitle);
-            });
-        });
-
-        function addedProductToCart(productTitle) {
-            changeCartCount();
-            addProductToUserCart(productTitle);
-            renderProductInCart(productTitle);
-            addTotalPriceProducts();
-        }
-
-        function changeCartCount() {
-            cartCountEl.style.background = '#F16D7F';
-            cartCountEl.textContent++;
-        }
-
-        let userCart = {};
-        function addProductToUserCart(productTitle) {
-            if (!(productTitle in userCart)) {
-                userCart[productTitle] = 1;
-            } else {
-                userCart[productTitle]++;
-            }
-        }
-
-        function renderProductInCart(productTitle) {
-            let productInCart = document.querySelector(`.productName[id = "${productTitle}"]`);
-            if (productInCart) {
-                changeProductQuantity(productTitle);
-                getSumForProduct(productTitle);
-            } else {
-                renderNewProductInCart(productTitle);
-            }
-        }
-
-        function renderNewProductInCart(productTitle) {
-            response.forEach((newGoodInCart) => {
-
-                if (newGoodInCart.title === productTitle) {
-                    cart.add(new GoodInCart(newGoodInCart));
-                }
-            });
-            cart.renderGoodsList(productTitle);
-
-        }
-
-        function changeProductQuantity(productTitle) {
-            const productQuantityEl = document.querySelector(`.productQuantity[id = "${productTitle}"]`);
-            productQuantityEl.textContent++;
-        }
-
-        function getSumForProduct(productTitle) {
-            const productTotalEl = document.querySelector(`.productMulti[type = "${productTitle}"]`);
-            const productPriceEl = document.querySelector(`.productPrice[id = "${productTitle}"]`);
-            let productTotalPrice = (userCart[productTitle] * productPriceEl.textContent).toFixed(2);
-            productTotalEl.textContent = productTotalPrice;
-
-        }
-        function addTotalPriceProducts() {
-            const productsTotalPriceEl = document.querySelectorAll('.productMulti');
-            let total = 0;
-            productsTotalPriceEl.forEach((totalPrice) => {
-                total += Number(totalPrice.innerHTML);
-
-            });
-
-            cartTotalEl.textContent = total;
-
-        }
-    })
-    .then(() => {
-
-
         openCartEl.addEventListener('click', () => {
             cartListEl.classList.toggle('b-menu__cart_active')
         });
 
+        /**
+         * Функция добавляет товар в корзину.
+         */
+        function addGoodInCart() {
+            const getAllButtonsFromCards = document.querySelectorAll('.b-card__button');
+            getAllButtonsFromCards.forEach((button) => {
+                button.addEventListener('click', (event) => {
+                    const productTitle = event.target.getAttribute('data-type');
+                    addedProductToCart(productTitle);
+                });
+            });
+            /**
+             * Функция принимает пераметр название продукта по которому произошел клик добавления в корзину.
+             * @param {string} productTitle Название продукта, который хотим добавить в корзину. 
+             */
+            function addedProductToCart(productTitle) {
+                changeCartCount();
+                addProductToUserCart(productTitle);
+                renderProductInCart(productTitle);
+                addTotalPriceProducts();
+            }
+            /**
+             * Функция меняет фон счетчика товаров в корзине и увеличивает его при клике.
+             */
+            function changeCartCount() {
+                cartCountEl.style.background = '#F16D7F';
+                cartCountEl.textContent++;
+            }
 
+            let userCart = {};
+            /**
+             * Функция добавляет в объект userCart свойства с названиями продуктов, которые добавляем в корзину со значением их количества. 
+             * @param {string} productTitle Название продукта, который хотим добавить в корзину. 
+             */
+            function addProductToUserCart(productTitle) {
+                if (!(productTitle in userCart)) {
+                    userCart[productTitle] = 1;
+                } else {
+                    userCart[productTitle]++;
+                }
+            }
+            /**
+             * Функция определяет есть ли товар в корзине или нет и определяет дальнейшее действие.
+             * @param {string} productTitle Название продукта, который хотим добавить в корзину. 
+             */
+            function renderProductInCart(productTitle) {
+                let productInCart = document.querySelector(`.productName[id = "${productTitle}"]`);
+                if (productInCart) {
+                    changeProductQuantity(productTitle);
+                    getSumForProduct(productTitle);
+                } else {
+                    renderNewProductInCart(productTitle);
+                }
+            }
+            /**
+             * Функция отрисовывает новый добавленный товар в корзину.
+             * @param {string} productTitle Название продукта, который хотим добавить в корзину. 
+             */
+            function renderNewProductInCart(productTitle) {
+                list._goods.forEach((newGoodInCart) => {
+                    if (newGoodInCart.title === productTitle) {
+                        cart.add(new GoodInCart(newGoodInCart));
+                    }
+                });
+                cart.renderGoodsList(productTitle);
+            }
+            /**
+             * Функция меняет количество продукта добавленнго в корзину.
+             * @param {string} productTitle Название продукта, который хотим добавить в корзину. 
+             */
+            function changeProductQuantity(productTitle) {
+                const productQuantityEl = document.querySelector(`.productQuantity[id = "${productTitle}"]`);
+                productQuantityEl.textContent++;
+            }
+            /**
+             * Функция считает общую стоимость продукта добавленного в корзину.
+             * @param {string} productTitle Название продукта, который хотим добавить в корзину. 
+             */
+            function getSumForProduct(productTitle) {
+                const productTotalEl = document.querySelector(`.productMulti[type = "${productTitle}"]`);
+                const productPriceEl = document.querySelector(`.productPrice[id = "${productTitle}"]`);
+                let productTotalPrice = (userCart[productTitle] * productPriceEl.textContent).toFixed(2);
+                productTotalEl.textContent = productTotalPrice;
+            }
+            /**
+             * Функция считает общую стоимость продуктов добавленных в корзину.
+             */
+            function addTotalPriceProducts() {
+                const productsTotalPriceEl = document.querySelectorAll('.productMulti');
+                let total = 0;
+                productsTotalPriceEl.forEach((totalPrice) => {
+                    total += Number(totalPrice.innerHTML);
+                });
+                cartTotalEl.textContent = total;
+            }
+        }
+
+        addGoodInCart();
+        searchBtnEl.addEventListener('click', () => {
+            list.filter(searchInput.value);
+            addGoodInCart();
+        });
     })
     .then(() => {
         let titleGood;
@@ -244,8 +273,5 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
         alert('ошибка');
     })
 
-searchBtnEl.addEventListener('click', () => {
-    list.filter(searchInput.value);
-});
 
 
