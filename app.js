@@ -72,7 +72,7 @@ class GoodInCart extends Good {
                 <span>$</span>
                 <span class = "productMulti" type = "${this.title}" >${this.price}</span>                    
             </div>        
-            <img class = "productClose" src="images/trash.png">        
+            <img class = "productClose" data-type = "${this.title}"src="images/trash.png">        
         </div>`;
     }
     rerender(title) {
@@ -101,13 +101,18 @@ class GoodList {
         this._filteredGoods.push(good);
     }
     remove(title) {
-        console.log(this._goods)
-        console.log(this._filteredGoods)
+
         this._filteredGoods.forEach((good) => {
             if (good.title === title) {
                 good.rerender(good.title);
+                good.quantity = 1;
+
             }
         });
+        // this._filteredGoods = this._goods.filter(good =>
+        //     !good.title);
+        // console.log(this._filteredGoods)
+        // console.log(this._goods)
     }
     renderGoodsList(productTitle) {
         if (!productTitle) {
@@ -255,10 +260,11 @@ fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.j
             }
             function removeGoodToCart() {
                 const allGoodsInCart = document.querySelectorAll('.productClose');
+
                 allGoodsInCart.forEach((good) => {
                     good.addEventListener('click', (event) => {
-                        let titleGood = event.target.parentElement.children[0].innerText;
-                        console.log(titleGood);
+                        const titleGood = event.target.getAttribute('data-type');
+
                         cart.remove(titleGood);
                     });
                 });
