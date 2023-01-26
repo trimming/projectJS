@@ -81,6 +81,7 @@ class GoodInCart extends Good {
             if (good.innerText === title) {
                 good.parentElement.remove();
             }
+
         });
     }
 }
@@ -106,13 +107,13 @@ class GoodList {
             if (good.title === title) {
                 good.rerender(good.title);
                 good.quantity = 1;
-
             }
         });
-        // this._filteredGoods = this._goods.filter(good =>
-        //     !good.title);
-        // console.log(this._filteredGoods)
-        // console.log(this._goods)
+        this._filteredGoods = this._goods.filter(goodsInCart =>
+            goodsInCart.title === title);
+        console.log(this._$goodsListContainer);
+        console.log(this._filteredGoods);
+        console.log(this._goods);
     }
     renderGoodsList(productTitle) {
         if (!productTitle) {
