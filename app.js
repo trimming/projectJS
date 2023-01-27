@@ -109,11 +109,14 @@ class GoodList {
                 good.quantity = 1;
             }
         });
+
         this._filteredGoods = this._goods.filter(goodsInCart =>
-            goodsInCart.title === title);
+            !(goodsInCart.title === title));
+
         console.log(this._$goodsListContainer);
         console.log(this._filteredGoods);
         console.log(this._goods);
+
     }
     renderGoodsList(productTitle) {
         if (!productTitle) {
