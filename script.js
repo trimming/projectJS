@@ -4,7 +4,9 @@ const app = new Vue({
     data: {
         goods: [],
         filteredGoods: [],
-        searchLine: ''
+        searchLine: '',
+        isVisibleCart: false,
+        cart: []
     },
     methods: {
         makeGETRequest() {
@@ -12,9 +14,21 @@ const app = new Vue({
                 .then((response) => {
                     return response.json();
                 })
-                .then((response) => {
-                    console.log(response);
+                .then((data) => {
+                    this.goods = data;
+                    this.filteredGoods = data;
                 })
+        },
+        filterGoods() {
+            let regex = new RegExp(this.searchLine, 'i');
+            this.filteredGoods = this.goods.filter(good =>
+                regex.test(good.product_name));
+        },
+        visibleCart() {
+            this.isVisibleCart = !this.isVisibleCart;
+        },
+        addToCart(title, product_price) {
+            this.cart.push({ product_name: title, price: product_price });
         }
     },
     mounted() {
