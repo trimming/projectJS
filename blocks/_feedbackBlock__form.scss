@@ -1,7 +1,7 @@
 .b-feedbackBlock__form {
     display: flex;
     justify-content: center;
-
+    flex-direction: column;
 
     input {
         @include kitProp(#222224, 400);
@@ -13,6 +13,10 @@
         padding: 10px 22px 10px 22px;
         border-bottom-left-radius: 50px;
         border-top-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+        border-top-right-radius: 50px;
+        margin-bottom: 15px;
+        margin-top: 15px;
     }
 
     button {
@@ -22,6 +26,10 @@
         padding: 10px 22px;
         border-bottom-right-radius: 50px;
         border-top-right-radius: 50px;
+        border-bottom-left-radius: 50px;
+        border-top-left-radius: 50px;
+        margin-top: 15px;
+        cursor: pointer;
         display: block;
         border: none;
     }
