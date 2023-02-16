@@ -18,6 +18,7 @@ const app = new Vue({
                     this.goods = data;
                     this.filteredGoods = data;
                 })
+            // .catch(alert("ошибка"))
         },
         filterGoods() {
             let regex = new RegExp(this.searchLine, 'i');
