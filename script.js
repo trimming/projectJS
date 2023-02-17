@@ -1,12 +1,13 @@
 'use strict';
 const app = new Vue({
     el: '#app',
-    data: {
-        goods: [],
-        filteredGoods: [],
-        searchLine: '',
-        isVisibleCart: false,
-        cart: []
+    data() {
+        return {
+            goods: [],
+            filteredGoods: [],
+            isVisibleCart: false,
+            cart: []
+        }
     },
     methods: {
         makeGETRequest() {
@@ -20,16 +21,21 @@ const app = new Vue({
                 })
             // .catch(alert("ошибка"))
         },
-        filterGoods() {
-            let regex = new RegExp(this.searchLine, 'i');
+        filterGoods(search) {
+            let regex = new RegExp(search, 'i');
             this.filteredGoods = this.goods.filter(good =>
                 regex.test(good.product_name));
         },
         visibleCart() {
             this.isVisibleCart = !this.isVisibleCart;
         },
-        addToCart(title, product_price) {
-            this.cart.push({ product_name: title, price: product_price });
+        addToCart(id) {
+            this.goods.forEach(good => {
+                if (good.id_product === id) {
+                    this.cart.push(good);
+                }
+            });
+            console.log(this.cart);
         }
     },
     mounted() {

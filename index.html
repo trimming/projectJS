@@ -11,19 +11,17 @@
 <body>
     <div id="app">
         <header>
-            <goods-search :search="searchLine"></goods-search>
-            <button class="cart-button" type="button" v-on:click="visibleCart">Корзина</button>
+            <goods-search v-on:filter="filterGoods"></goods-search>
         </header>
         <main>
-            <ul v-if="isVisibleCart">
-                <li v-for="good of cart">{{good.product_name}}__${{good.price}}</li>
-            </ul>
-            <goods-list :goods="filteredGoods"></goods-list>
+            <goods-cart :cart_block="cart"></goods-cart>
+            <goods-list :goods="filteredGoods" v-on:add="addToCart"></goods-list>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
-    <script src="goods-list.js"></script>
-    <script src="goods-search.js"></script>
+    <script src="components/goods-cart.js"></script>
+    <script src="components/goods-list.js"></script>
+    <script src="components/goods-search.js"></script>
     <script src="script.js"></script>
 </body>
 
