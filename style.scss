@@ -50,30 +50,31 @@
     &__wrap {
         position: relative;
     }
+}
 
-    &__heading {
-        background: #F8F3F4;
-        height: 148px;
+.header__heading {
+    background: #F8F3F4;
+    height: 148px;
 
-        &_container {
-            height: inherit;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
+    &_container {
+        height: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
 
-            @media (max-width: 667px) {
-                justify-content: center;
-            }
+        @media (max-width: 667px) {
+            justify-content: center;
+        }
 
-            h1 {
-                font-weight: 400;
-                font-size: 24px;
-                line-height: 29px;
-                color: $colorPink;
-            }
+        h1 {
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 29px;
+            color: $colorPink;
         }
     }
 }
+
 
 .header__content {
     display: flex;
@@ -302,14 +303,6 @@
         }
     }
 }
-
-
-//-------ARRIVALS
-.header__heading {
-    background: #F8F3F4;
-    height: 148px;
-}
-
 
 //-------FILTER
 .filter {
