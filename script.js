@@ -6,7 +6,8 @@ const app = new Vue({
             goods: [],
             filteredGoods: [],
             isVisibleCart: false,
-            cart: []
+            cart: [],
+            message: false
         }
     },
     methods: {
@@ -19,7 +20,10 @@ const app = new Vue({
                     this.goods = data;
                     this.filteredGoods = data;
                 })
-            // .catch(alert("ошибка"))
+                .catch((reject) => {
+                    this.message = !this.message;
+                    console.log('ошибка');
+                })
         },
         filterGoods(search) {
             let regex = new RegExp(search, 'i');

@@ -14,11 +14,13 @@
             <goods-search v-on:filter="filterGoods"></goods-search>
         </header>
         <main>
-            <goods-cart :cart_block="cart"></goods-cart>
+            <goods-cart :cart_block="cart" v-on:show="visibleCart" :hidden="isVisibleCart"></goods-cart>
             <goods-list :goods="filteredGoods" v-on:add="addToCart"></goods-list>
+            <message-comp :message="message"></message-comp>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/vue@2.5.17/dist/vue.js"></script>
+    <script src="components/message-comp.js"></script>
     <script src="components/goods-cart.js"></script>
     <script src="components/goods-list.js"></script>
     <script src="components/goods-search.js"></script>
