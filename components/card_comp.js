@@ -4,7 +4,7 @@ Vue.component('card_comp', {
     <div class="b-card__wrap">
         <img class="b-card__img" :src="good.image" alt="model">
         <div class="b-card__wrapBtn">
-            <button class="b-card__button">
+            <button class="b-card__button" v-on:click="addToCart">
                 <img src="images/cart.svg" alt="cart">
                 Add to Cart
             </button>
@@ -15,5 +15,10 @@ Vue.component('card_comp', {
         <p class="b-card__infoText">{{ good.text }}</p>
         <p class="b-card__infoPrice">$<span class="b-ard__price">{{ good.price }}</span></p>
     </div>
-</div>`
+    </div>`,
+    methods: {
+        addToCart() {
+            this.$emit('add', this.good.id)
+        }
+    }
 })

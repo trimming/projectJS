@@ -5,11 +5,12 @@ const vue = new Vue({
             goods: [],
             filteredGoods: [],
             cart: [],
+            currentPage: 'catalog',
         }
     },
     methods: {
         makeGETRequest() {
-            fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-3/goodsList.json')
+            fetch('https://raw.githubusercontent.com/trimming/projectJS/lesson-4/goodsList.json')
                 .then((response) => {
                     return response.json();
                 })
@@ -26,6 +27,14 @@ const vue = new Vue({
             let regex = new RegExp(search, 'i');
             this.filteredGoods = this.goods.filter(good =>
                 regex.test(good.title));
+        },
+        addToCart(id) {
+            this.goods.forEach(good => {
+                if (good.id === id) {
+                    this.cart.push(good);
+                }
+            });
+            console.log(this.cart);
         }
     },
     mounted() {

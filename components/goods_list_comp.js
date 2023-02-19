@@ -57,7 +57,7 @@ Vue.component('goods_list_comp', {
         </div>
     </nav>
     <div class="filter__cards">
-        <card_comp v-for="good in goods" :good="good" :key="good.id"></card_comp>
+        <card_comp v-for="good in goods" :good="good" :key="good.id" v-on:add="addToCart"></card_comp>
     </div>
     <nav class="nav__low">
         <a href="#"><img src="images/code_left.svg" alt="code"></a>
@@ -71,5 +71,10 @@ Vue.component('goods_list_comp', {
         <a href="#">20</a>
         <a href="#"><img src="images/code_right.svg" alt="code"></a>
     </nav>
-</div>`
+    </div>`,
+    methods: {
+        addToCart(id) {
+            this.$emit('add', id)
+        }
+    }
 })

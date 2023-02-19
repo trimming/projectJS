@@ -612,6 +612,8 @@
   margin: 0;
   -webkit-box-shadow: 17px 19px 24px rgba(0, 0, 0, 0.13);
           box-shadow: 17px 19px 24px rgba(0, 0, 0, 0.13);
+  margin-bottom: 40px;
+  width: 652px;
 }
 
 @media (max-width: 1024px) {
@@ -619,6 +621,8 @@
     -ms-grid-column: 1;
     -ms-grid-column-span: 2;
     grid-column: 1/3;
+    width: 100%;
+    margin-bottom: 20px;
   }
 }
 
@@ -1544,34 +1548,22 @@
 }
 
 .cart__content {
-  display: -ms-grid;
-  display: grid;
-  -ms-grid-columns: 652px 1fr;
-      grid-template-columns: 652px 1fr;
-  -ms-grid-rows: (1fr)[2] 49px;
-      grid-template-rows: repeat(2, 1fr) 49px;
-  row-gap: 40px;
-  -webkit-column-gap: 128px;
-          column-gap: 128px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
   margin-top: 96px;
   margin-bottom: 128px;
 }
 
-@media (max-width: 1140px) {
-  .cart__content {
-    -webkit-column-gap: 40px;
-            column-gap: 40px;
-  }
-}
-
 @media (max-width: 1024px) {
   .cart__content {
-    -ms-grid-columns: (1fr)[2];
-        grid-template-columns: repeat(2, 1fr);
-    -webkit-column-gap: 15px;
-            column-gap: 15px;
-    -ms-grid-rows: (306px)[2] 96px 271px;
-        grid-template-rows: repeat(2, 306px) 96px 271px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin-top: 59px;
   }
 }
@@ -1580,11 +1572,10 @@
   .cart__content {
     margin-top: 39px;
     margin-bottom: 96px;
-    -ms-grid-columns: 1fr;
-        grid-template-columns: 1fr;
-    -ms-grid-rows: 1fr;
-        grid-template-rows: 1fr;
-    row-gap: 30px;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
     margin-left: 8px;
     margin-right: 8px;
   }
@@ -1736,6 +1727,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  margin-bottom: 40px;
 }
 
 @media (max-width: 1024px) {

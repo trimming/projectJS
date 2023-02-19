@@ -4,9 +4,13 @@
     justify-content: start;
     margin: 0;
     box-shadow: 17px 19px 24px rgba(0, 0, 0, 0.13);
+    margin-bottom: 40px;
+    width: 652px;
 
     @media (max-width: 1024px) {
         grid-column: 1/3;
+        width: 100%;
+        margin-bottom: 20px;
     }
 
     @media (max-width: 667px) {

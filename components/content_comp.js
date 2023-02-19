@@ -1,5 +1,5 @@
 Vue.component('content_comp', {
-    props: ['goods'],
+    props: ['goods', 'cart_list', 'page'],
     template: ` <div class="content">
     <header class="header__catalog">
         <div class="header__menu">
@@ -10,25 +10,7 @@ Vue.component('content_comp', {
                     <a href="registration.html"><img src="images/user.svg" alt="user"></a>
                     <div class="b-menu__rightCart">
                         <a class="b-menu__rightCartIcon"><img src="images/cart.svg" alt="cart"></a>
-                        <span class="b-menu__quantityCart"></span>
-                        <div class="b-menu__cart">
-                            <div class="b-menu__cartWrap">
-                                <span>Наименование <br> товара</span>
-                                <span>Количество</span>
-                                <span>Цена за шт.</span>
-                                <span>Итого</span>
-                                <span>Удалить</span>
-                            </div>
-                            <div class="b-menu__cartProduct">
-                            </div>
-                            <div class="b-menu__cartWrap">
-                                <span>Товаров в корзине на сумму:</span>
-                                <div>
-                                    <span>$</span>
-                                    <span class="cartTotal">0</span>
-                                </div>
-                            </div>
-                        </div>
+                        <span class="b-menu__quantityCart"></span>                        
                     </div>
                 </div>
             </div>
@@ -46,7 +28,8 @@ Vue.component('content_comp', {
             </div>
         </div>
     </header> 
-    <goods_list_comp :goods="goods"></goods_list_comp>
+    <goods_list_comp :goods="goods" v-on:add="addToCart" v-if="page == 'catalog'"></goods_list_comp>
+    <cart_comp :cart_list="cart_list" v-if="page == 'cart'"></cart_comp>
     <div class="advantage">
         <div class="container advantage__content">
             <div class="b-advantageItem">
@@ -73,6 +56,9 @@ Vue.component('content_comp', {
     methods: {
         filterGoods(search) {
             this.$emit('filter', search)
+        },
+        addToCart(id) {
+            this.$emit('add', id)
         }
     }
 })
