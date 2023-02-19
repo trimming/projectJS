@@ -4,7 +4,7 @@ const vue = new Vue({
         return {
             goods: [],
             filteredGoods: [],
-            cart: []
+            cart: [],
         }
     },
     methods: {
@@ -18,9 +18,14 @@ const vue = new Vue({
                     this.filteredGoods = data;
                 })
                 .catch((reject) => {
-                    this.message = !this.message;
-                    console.log('ошибка');
+
+                    alert('ошибка');
                 })
+        },
+        filterGoods(search) {
+            let regex = new RegExp(search, 'i');
+            this.filteredGoods = this.goods.filter(good =>
+                regex.test(good.title));
         }
     },
     mounted() {
