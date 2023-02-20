@@ -70,7 +70,7 @@ Vue.component('goods_list_comp', {
         <a href="#">.....</a>
         <a href="#">20</a>
         <a href="#"><img src="images/code_right.svg" alt="code"></a>
-    </nav>
+    </nav>    
     </div>`,
     methods: {
         addToCart(id) {

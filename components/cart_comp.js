@@ -39,7 +39,7 @@ Vue.component('cart-goods_comp', {
                 <li>Price:<span>{{ good.price }}$</span></li>
                 <li>Color:<span>Red</span></li>
                 <li>Size:<span>Xl</span></li>
-                <li>Quantity:<span>2</span></li>
+                <li>Quantity:<span>{{ good.quantity }}</span></li>
             </ul>
         </div>
         <img src="images/close.svg" alt="close">

@@ -30,11 +30,17 @@ const vue = new Vue({
         },
         addToCart(id) {
             this.goods.forEach(good => {
-                if (good.id === id) {
+                if (good.id === id && good.quantity == undefined) {
+                    good.quantity = 1;
                     this.cart.push(good);
+                } else {
+                    good.quantity++;
                 }
             });
             console.log(this.cart);
+        },
+        goToHandler(target) {
+            this.currentPage = target;
         }
     },
     mounted() {
