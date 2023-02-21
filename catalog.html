@@ -12,7 +12,8 @@
 <body>
     <div class="wrapper" id="app">
         <content_comp :goods="filteredGoods" v-on:filter="filterGoods" v-on:add="addToCart" :cart_list="cart"
-            :page="currentPage" v-on:go-to="goToHandler" v-bind:count="cart.length">
+            :page="currentPage" v-on:go-to="goToHandler" v-bind:count="cartCount" :total="cartTotal"
+            v-on:close="closeCard">
         </content_comp>
         <footer_comp></footer_comp>
     </div>

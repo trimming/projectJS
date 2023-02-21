@@ -1,10 +1,10 @@
 Vue.component('content_comp', {
-    props: ['goods', 'cart_list', 'page', 'count'],
+    props: ['goods', 'cart_list', 'page', 'count', 'total'],
     template: ` <div class="content">
     <header class="header__catalog">
         <div class="header__menu">
             <div class="b-menu container">
-                <search_comp v-on:filter="filterGoods" v-on:go-to="goToHandler"></search_comp>
+                <search_comp v-on:filter="filterGoods"></search_comp>
                 <div class="b-menu__right">
                     <a href="product.html"><img src="images/burger.svg" alt="bar"></a>
                     <a href="registration.html"><img src="images/user.svg" alt="user"></a>
@@ -14,7 +14,7 @@ Vue.component('content_comp', {
         </div>        
     </header>
     <catalog_comp :goods="goods" v-if="page == 'catalog'" v-on:add="addToCart"></catalog_comp>
-    <cart_comp :cart_list="cart_list" v-if="page == 'cart'"></cart_comp>     
+    <cart_comp :cart_list="cart_list" v-if="page == 'cart'" v-on:go-to="goToHandler" :total="total" v-on:close="closeCard"></cart_comp>     
 </div>`,
     methods: {
         filterGoods(search) {
@@ -25,6 +25,9 @@ Vue.component('content_comp', {
         },
         goToHandler(target) {
             this.$emit('go-to', target)
+        },
+        closeCard(id) {
+            this.$emit('close', id)
         }
     }
 })

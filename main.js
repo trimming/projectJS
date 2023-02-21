@@ -6,6 +6,8 @@ const vue = new Vue({
             filteredGoods: [],
             cart: [],
             currentPage: 'catalog',
+            cartCount: 0,
+            cartTotal: 0,
         }
     },
     methods: {
@@ -30,17 +32,31 @@ const vue = new Vue({
         },
         addToCart(id) {
             this.goods.forEach(good => {
-                if (good.id === id && good.quantity == undefined) {
-                    good.quantity = 1;
+                if (good.id === id && good.quantity >= 1) {
+                    good.quantity += 1;
+                    this.cartCount++;
+                    good.total = good.quantity * good.price;
+                    this.getTotalCart();
+                } else if (good.id === id) {
                     this.cart.push(good);
-                } else {
-                    good.quantity++;
+                    good.quantity = 1;
+                    this.cartCount++;
+                    good.total = good.quantity * good.price;
+                    this.getTotalCart();
                 }
             });
             console.log(this.cart);
         },
         goToHandler(target) {
             this.currentPage = target;
+        },
+        getTotalCart() {
+            let initialValue = 0;
+            this.cartTotal = this.cart.reduce((acc, curr) =>
+                acc + curr.total, initialValue);
+        },
+        closeCard(id) {
+            this.cart = this.cart.filter((good) => good.id != id)
         }
     },
     mounted() {
