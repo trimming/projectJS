@@ -5,7 +5,7 @@ Vue.component('cart_comp', {
             <div>
                 <cart-goods_comp v-for="good in cart_list" :good="good" :key="good.id" v-on:close="closeCard"></cart-goods_comp>                                               
                 <div class="cart__buttons">
-                    <button>Clear shopping cart</button>
+                    <button v-on:click="clearCartHandler">Clear shopping cart</button>
                     <button v-on:click="goToHandler">Continue shopping</button>
                 </div>
             </div>        
@@ -32,6 +32,9 @@ Vue.component('cart_comp', {
         },
         closeCard(id) {
             this.$emit('close', id)
+        },
+        clearCartHandler() {
+            this.$emit('clear', this.cart_list)
         }
     }
 })

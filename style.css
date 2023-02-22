@@ -731,6 +731,7 @@
   width: 18px;
   margin-top: 7px;
   margin-right: 22px;
+  cursor: pointer;
 }
 
 @media (max-width: 667px) {
@@ -1762,6 +1763,7 @@
   color: #000000;
   font-weight: 300;
   text-transform: uppercase;
+  cursor: pointer;
 }
 
 @media (max-width: 667px) {

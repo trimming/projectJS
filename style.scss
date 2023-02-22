@@ -820,6 +820,7 @@
                 width: 225px;
                 @include kitProp(#000000, 300);
                 text-transform: uppercase;
+                cursor: pointer;
 
                 @media (max-width: 667px) {
                     height: 32px;

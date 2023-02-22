@@ -56,7 +56,24 @@ const vue = new Vue({
                 acc + curr.total, initialValue);
         },
         closeCard(id) {
-            this.cart = this.cart.filter((good) => good.id != id)
+            this.cart = this.cart.filter((good) => good.id != id);
+            this.goods.forEach(good => {
+                if (good.id === id) {
+                    console.log(this.cartCount = this.cartCount - good.quantity);
+                    good.quantity = 0;
+                    good.total = 0;
+                    this.getTotalCart();
+                }
+            })
+        },
+        clearCartHandler(target) {
+            this.cart.forEach(good => {
+                good.quantity = 0;
+                good.total = 0;
+            })
+            this.cart = [];
+            this.cartCount = 0;
+            this.cartTotal = 0;
         }
     },
     mounted() {
