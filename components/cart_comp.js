@@ -1,15 +1,27 @@
 Vue.component('cart_comp', {
     props: ['cart_list', 'total'],
     template: `<main class="cart">
+                <div class="header__heading">
+                    <div class="b-heading b-heading__shopping_padding container">
+                        <div class="b-heading__left"><a href="#">SHOPPING CART</a></div>
+                        <div class="b-heading__right b-heading__right_disabled">
+                            <a href="#">HOME</a>
+                            <span>/</span>
+                            <a href="#">MEN</a>
+                            <span>/</span>
+                            <a href="#">NEW ARRIVALS</a>
+                        </div>
+                    </div>
+                </div>
     <div class="cart__content container">
-            <div>
+            <div class="cart__goods">
                 <cart-goods_comp v-for="good in cart_list" :good="good" :key="good.id" v-on:close="closeCard"></cart-goods_comp>                                               
                 <div class="cart__buttons">
                     <button v-on:click="clearCartHandler">Clear shopping cart</button>
                     <button v-on:click="goToHandler">Continue shopping</button>
                 </div>
             </div>        
-            <div>
+            <div class= "cart__form">
                 <form action="#">
                     <h3>SHIPPING ADRESS</h3>
                     <input type="text" placeholder="Bangladesh">
