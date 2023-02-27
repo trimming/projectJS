@@ -11,8 +11,8 @@ const app = new Vue({
         }
     },
     methods: {
-        makeGETRequest() {
-            fetch('https://raw.githubusercontent.com/GeekBrainsTutorial/online-store-api/master/responses/catalogData.json')
+        makeGETRequest(url) {
+            fetch(url)
                 .then((response) => {
                     return response.json();
                 })
@@ -43,7 +43,8 @@ const app = new Vue({
         }
     },
     mounted() {
-        this.makeGETRequest()
+        this.makeGETRequest('/catalogData');
+        this.makeGETRequest('/addToCart');
     }
 
 });

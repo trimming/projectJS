@@ -1,0 +1,26 @@
+{
+  "name": "lesson-7",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "node"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/trimming/projectJS.git"
+  },
+  "keywords": [
+    "node"
+  ],
+  "author": "Alexey Golikov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/trimming/projectJS/issues"
+  },
+  "homepage": "https://github.com/trimming/projectJS#readme",
+  "dependencies": {
+    "express": "^4.18.2",
+    "moment": "^2.29.4"
+  }
+}
