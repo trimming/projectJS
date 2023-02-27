@@ -50,30 +50,31 @@
     &__wrap {
         position: relative;
     }
+}
 
-    &__heading {
-        background: #F8F3F4;
-        height: 148px;
+.header__heading {
+    background: #F8F3F4;
+    height: 148px;
 
-        &_container {
-            height: inherit;
-            display: flex;
-            align-items: center;
-            justify-content: flex-start;
+    &_container {
+        height: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
 
-            @media (max-width: 667px) {
-                justify-content: center;
-            }
+        @media (max-width: 667px) {
+            justify-content: center;
+        }
 
-            h1 {
-                font-weight: 400;
-                font-size: 24px;
-                line-height: 29px;
-                color: $colorPink;
-            }
+        h1 {
+            font-weight: 400;
+            font-size: 24px;
+            line-height: 29px;
+            color: $colorPink;
         }
     }
 }
+
 
 .header__content {
     display: flex;
@@ -302,14 +303,6 @@
         }
     }
 }
-
-
-//-------ARRIVALS
-.header__heading {
-    background: #F8F3F4;
-    height: 148px;
-}
-
 
 //-------FILTER
 .filter {
@@ -664,42 +657,43 @@
 //-------CART
 .cart {
     &__content {
-        display: grid;
-        grid-template-columns: 652px 1fr;
-        grid-template-rows: repeat(2, 1fr) 49px;
-        row-gap: 40px;
-        column-gap: 128px;
+        display: flex;
+        justify-content: space-between;
         margin-top: 96px;
-        margin-bottom: 128px;
-
-        @media (max-width: 1140px) {
-            column-gap: 40px;
-        }
+        margin-bottom: 128px;        
 
         @media (max-width: 1024px) {
-            grid-template-columns: repeat(2, 1fr);
-            column-gap: 15px;
-            grid-template-rows: repeat(2, 306px) 96px 271px;
+            flex-direction: column;
             margin-top: 59px;
         }
 
         @media (max-width: 667px) {
             margin-top: 39px;
             margin-bottom: 96px;
-            grid-template-columns: 1fr;
-            grid-template-rows: 1fr;
-            row-gap: 30px;
+            flex-direction: column;
             margin-left: 8px;
             margin-right: 8px;
+        }
+        .cart__goods {
+            margin-right: 128px;
+            width: 652px;
+            
+            @media (max-width: 1024px) {
+                margin-right: 0;
+                width: 100%;
+            }
+        }
+        .cart__form {
+            flex: 1 1 auto;
         }
 
         form {
             display: flex;
             flex-direction: column;
             padding-top: 17px;
+            margin-bottom: 40px;
 
-            @media (max-width: 1024px) {
-                grid-row: 4/5;
+            @media (max-width: 1024px) {                
                 padding-top: 0;
             }
 
@@ -758,8 +752,7 @@
                 margin-top: 38px;
             }
 
-            @media (max-width: 667px) {
-                grid-row: 5/6;
+            @media (max-width: 667px) {                
                 margin-top: 18px;
             }
 
@@ -815,16 +808,17 @@
             margin-top: 32px;
             display: flex;
             justify-content: space-between;
+            margin-bottom: 40px;
 
-            @media (max-width: 1024px) {
-                grid-column: 1/3;
-                grid-row: 3/4;
+
+
+            @media (max-width: 1024px) {                
                 justify-content: space-around;
                 margin-top: 22px;
             }
 
             @media (max-width: 667px) {
-                grid-column: 1/2;
+                
                 margin-top: 0;
             }
 
@@ -835,6 +829,7 @@
                 width: 225px;
                 @include kitProp(#000000, 300);
                 text-transform: uppercase;
+                cursor: pointer;
 
                 @media (max-width: 667px) {
                     height: 32px;
