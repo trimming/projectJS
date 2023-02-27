@@ -17,8 +17,12 @@ const app = new Vue({
                     return response.json();
                 })
                 .then((data) => {
-                    this.goods = data;
-                    this.filteredGoods = data;
+                    if (url === '/catalogData') {
+                        this.goods = data;
+                        this.filteredGoods = data;
+                    } else {
+                        this.cart = data;
+                    }
                 })
                 .catch((reject) => {
                     this.message = !this.message;
@@ -37,9 +41,16 @@ const app = new Vue({
             this.goods.forEach(good => {
                 if (good.id_product === id) {
                     this.cart.push(good);
+                    fetch('/addToCart', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(good)
+                    });
                 }
             });
-            console.log(this.cart);
+
         }
     },
     mounted() {

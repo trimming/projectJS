@@ -13,14 +13,21 @@ app.get('/catalogData', (req, res) => {
     });
 });
 
+app.get('/addToCart', (req, res) => {
+    fs.readFile('./data/cart.json', 'utf8', (err, data) => {
+        res.send(data);
+    });
+});
+
 app.post('/addToCart', (req, res) => {
     fs.readFile('./data/cart.json', 'utf8', (err, data) => {
         const cart = JSON.parse(data);
-        const item = req.body;
-        cart.push(item);
+        console.log(req.body);
+        cart.push(req.body);
 
         fs.writeFile('./data/cart.json', JSON.stringify(cart), (err) => {
             console.log('done');
+            res.end();
         });
     });
 });
