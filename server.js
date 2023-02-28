@@ -19,10 +19,15 @@ app.get('/addToCart', (req, res) => {
     });
 });
 
+app.get('/removeFromCart', (req, res) => {
+    fs.readFile('./data/cart.json', 'utf8', (err, data) => {
+        res.send(data);
+    });
+});
+
 app.post('/addToCart', (req, res) => {
     fs.readFile('./data/cart.json', 'utf8', (err, data) => {
         const cart = JSON.parse(data);
-        console.log(req.body);
         cart.push(req.body);
 
         fs.writeFile('./data/cart.json', JSON.stringify(cart), (err) => {
@@ -31,6 +36,20 @@ app.post('/addToCart', (req, res) => {
         });
     });
 });
+
+app.post('/removeFromCart', (req, res) => {
+    fs.readFile('./data/cart.json', 'utf8', (err, data) => {
+        const cart = JSON.parse(data);
+        const list = cart.filter(good =>
+            good.id_product !== req.body.id_product);
+
+        fs.writeFile('./data/cart.json', JSON.stringify(list), (err) => {
+            console.log('done');
+            res.end();
+        });
+    });
+});
+
 
 app.listen(3000, () => {
     console.log('server is running on port 3000...');

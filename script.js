@@ -47,15 +47,30 @@ const app = new Vue({
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify(good)
-                    });
+                    })
                 }
             });
-
+        },
+        removeFromCart(id) {
+            this.cart.forEach(good => {
+                if (good.id_product === id) {
+                    fetch('/removeFromCart', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(good)
+                    })
+                }
+            });
+            this.cart = this.cart.filter(good =>
+                good.id_product !== id);
         }
     },
     mounted() {
         this.makeGETRequest('/catalogData');
         this.makeGETRequest('/addToCart');
+        this.makeGETRequest('/removeFromCart');
     }
 
 });
