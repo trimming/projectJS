@@ -25,6 +25,13 @@ app.get('/removeFromCart', (req, res) => {
     });
 });
 
+app.get('/stats', (req, res) => {
+    fs.readFile('./data/stats.json', 'utf8', (err, data) => {
+        res.send(data);
+    });
+});
+
+
 app.post('/addToCart', (req, res) => {
     fs.readFile('./data/cart.json', 'utf8', (err, data) => {
         const cart = JSON.parse(data);
@@ -45,6 +52,19 @@ app.post('/removeFromCart', (req, res) => {
 
         fs.writeFile('./data/cart.json', JSON.stringify(list), (err) => {
             console.log('done');
+            res.end();
+        });
+    });
+});
+
+app.post('/stats', (req, res) => {
+    fs.readFile('./data/stats.json', 'utf8', (err, data) => {
+        const stat = JSON.parse(data);
+        const time = new Date();
+        stat.push({ "operation": req.body.operation, "time": time, "product": req.body.product_name });
+        console.log(req.body);
+
+        fs.writeFile('./data/stats.json', JSON.stringify(stat), (err) => {
             res.end();
         });
     });
