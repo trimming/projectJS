@@ -7,7 +7,8 @@ const app = new Vue({
             filteredGoods: [],
             isVisibleCart: false,
             cart: [],
-            message: false
+            message: false,
+            stat: []
         }
     },
     methods: {
@@ -20,6 +21,8 @@ const app = new Vue({
                     if (url === '/catalogData') {
                         this.goods = data;
                         this.filteredGoods = data;
+                    } else if (url === '/stats') {
+                        this.stat = data;
                     } else {
                         this.cart = data;
                     }
@@ -41,21 +44,53 @@ const app = new Vue({
             this.goods.forEach(good => {
                 if (good.id_product === id) {
                     this.cart.push(good);
+                    good.operation = 'add';
                     fetch('/addToCart', {
                         method: 'POST',
                         headers: {
                             "Content-Type": "application/json"
                         },
                         body: JSON.stringify(good)
-                    });
+                    })
+                    fetch('/stats', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(good)
+                    })
                 }
             });
-
+        },
+        removeFromCart(id) {
+            this.cart.forEach(good => {
+                if (good.id_product === id) {
+                    good.operation = 'remove';
+                    fetch('/removeFromCart', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(good)
+                    })
+                    fetch('/stats', {
+                        method: 'POST',
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(good)
+                    })
+                }
+            });
+            this.cart = this.cart.filter(good =>
+                good.id_product !== id);
         }
     },
     mounted() {
         this.makeGETRequest('/catalogData');
         this.makeGETRequest('/addToCart');
+        this.makeGETRequest('/removeFromCart');
+        this.makeGETRequest('/stats');
     }
 
 });

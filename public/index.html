@@ -14,7 +14,8 @@
             <goods-search v-on:filter="filterGoods"></goods-search>
         </header>
         <main>
-            <goods-cart :cart_block="cart" v-on:show="visibleCart" :hidden="isVisibleCart"></goods-cart>
+            <goods-cart :cart_block="cart" v-on:show="visibleCart" :hidden="isVisibleCart" v-on:remove="removeFromCart">
+            </goods-cart>
             <goods-list :goods="filteredGoods" v-on:add="addToCart"></goods-list>
             <message-comp :message="message"></message-comp>
         </main>
