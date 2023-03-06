@@ -8,24 +8,24 @@ app.use(express.static('.'));
 app.use(bodyParser.json());
 
 app.get('/catalogData', (req, res) => {
-    fs.readFile('./data/catalog.json', 'utf8', (err, data) => {
+    fs.readFile('./server/data/catalog.json', 'utf8', (err, data) => {
         res.send(data);
     });
 });
 
 app.get('/addToCart', (req, res) => {
-    fs.readFile('./data/cart.json', 'utf8', (err, data) => {
+    fs.readFile('./server/data/cart.json', 'utf8', (err, data) => {
         res.send(data);
     });
 });
 
 app.post('/addToCart', (req, res) => {
-    fs.readFile('./data/cart.json', 'utf8', (err, data) => {
+    fs.readFile('./server/data/cart.json', 'utf8', (err, data) => {
         const cart = JSON.parse(data);
         console.log(req.body);
         cart.push(req.body);
 
-        fs.writeFile('./data/cart.json', JSON.stringify(cart), (err) => {
+        fs.writeFile('./server/data/cart.json', JSON.stringify(cart), (err) => {
             console.log('done');
             res.end();
         });
