@@ -13,7 +13,7 @@
         props: ['good'],
         methods: {
             addToCart() {
-                this.$store.dispatch('addToCart', this.good.id_product)
+                this.$store.dispatch('loadToCart', this.good)
             } 
         }
     }

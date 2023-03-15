@@ -9,9 +9,19 @@
 
     export default {
         name: 'GoodsList',
-        props: ['goods'],
         components: {
             Card
+        },
+        computed: {
+            search() {
+            return this.$store.getters.getSearch ? new RegExp(this.$store.getters.getSearch, 'gi') : false
+            },
+            goods() {                
+                if(this.search) {
+                    return this.$store.getters.getGoods.filter((good) => this.search.test(good.product_name))
+                }
+                return this.$store.getters.getGoods;
+            }
         }
     }
 </script>

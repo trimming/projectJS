@@ -8,9 +8,8 @@
         props: ['good'],
         methods: {
             removeFromCart() {
-                this.$store.dispatch('removeFromCart', this.good.id_product)
+                this.$store.dispatch('loadFromCart', this.good)
              }
         }
     }
-
 </script>
