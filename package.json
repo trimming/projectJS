@@ -1,29 +1,21 @@
 {
-  "name": "lesson-7",
-  "version": "1.0.0",
-  "description": "",
-  "main": "script.js",
+  "name": "test-project",
+  "version": "0.1.0",
+  "private": true,
   "scripts": {
-    "test": "node",
-    "build": "webpack"
+    "serve": "vue-cli-service serve",
+    "build": "vue-cli-service build"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/trimming/projectJS.git"
-  },
-  "keywords": [
-    "node"
-  ],
-  "author": "Alexey Golikov",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/trimming/projectJS/issues"
-  },
-  "homepage": "https://github.com/trimming/projectJS#readme",
   "dependencies": {
-    "express": "^4.18.2",
-    "moment": "^2.29.4",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^5.0.1"
+    "vue": "^3.2.13",
+    "vue-router": "^4.0.3",
+    "vuex": "^4.0.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-router": "~5.0.0",
+    "@vue/cli-plugin-vuex": "~5.0.0",
+    "@vue/cli-service": "~5.0.0",
+    "sass": "^1.32.7",
+    "sass-loader": "^12.0.0"
   }
 }
