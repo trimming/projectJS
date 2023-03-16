@@ -10,7 +10,7 @@ const routes = [
   {
     path: '/cart',
     name: 'Cart',
-    component: Cart
+    component: CartView
   }
 
 ]

@@ -1,14 +1,14 @@
 <template>
   <div class="b-menu__left">
-    <span><img src="images/logo.svg" alt="logo" /></span>
+    <span><img src="img/logo.svg" alt="logo" /></span>
     <input
       type="text"
       class="goods-search"
-      v-model="search"
+      v-bind="search"
       v-if="page == 'catalog'"
     />
     <button class="search-button" type="button" v-on:click="filterGoods">
-      <img src="images/search.svg" alt="search" />
+      <img src="img/search.svg" alt="search" />
     </button>
   </div>
 </template>
@@ -24,3 +24,23 @@ export default {
   },
 };
 </script>
+
+<style lang="scss">
+  .b-menu__left {
+        display: flex;
+        align-items: end;
+        justify-content: space-between;
+        width: 111px;
+
+        .goods-search {
+            align-self: center;
+            margin-left: 20px;
+            margin-right: 5px;
+        }
+
+        .search-button {
+            background-color: #222222;
+            border: none;
+        }
+    }
+</style>
