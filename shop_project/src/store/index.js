@@ -5,6 +5,7 @@ export default createStore({
     goods: [],
     cart: [],
     search: '',
+    cartCount: 0,
   },
   getters: {
     getGoods(state) {
@@ -19,10 +20,19 @@ export default createStore({
   },
   mutations: {
     setGoods(state, payload) { state.goods = [...state.goods, ...payload] },
+    addToCart(state, goodId) {
+      const goodInCart = state.cart.find((good) => good.id === goodId)
+      if(goodInCart) {
+        goodInCart.quantity++
+      } else {
+        const good = state.goods.find((good) => good.id === goodId)
+        state.cart.push({...good, quantity: 1})
+      }
+    }
   },
   actions: {
     loadGoodsList({ commit }) {
-      return fetch('api/good')
+      return fetch('/api/good')
         .then((response) => {
           return response.json()
         })
@@ -30,7 +40,15 @@ export default createStore({
           commit('setGoods', goodList)
         })
     },
-
+    loadToCart({commit, dispatch}, good) {
+      return fetch('/api/cart', {method: 'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(good)})
+        .then((response) => {
+          commit('addToCart', good.id)
+          // dispatch('setStat', { type: 'add', id: good.id})
+          console.log(good)
+        })
+        
+    },
   },
   modules: {
   }

@@ -7,9 +7,9 @@
       v-bind="search"
       v-if="page == 'catalog'"
     />
-    <button class="search-button" type="button" v-on:click="filterGoods">
+    <router-link to="/catalog" class="search-button" type="button" v-on:click="filterGoods">
       <img src="img/search.svg" alt="search" />
-    </button>
+    </router-link>
   </div>
 </template>
 

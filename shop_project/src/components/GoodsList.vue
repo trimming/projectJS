@@ -85,6 +85,11 @@ export default {
   components: {
     Card,
   },
+  computed: {
+    goods() {
+      return this.$store.getters.getGoods;
+    }
+  }
 };
 </script>
 

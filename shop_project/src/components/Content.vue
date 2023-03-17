@@ -25,6 +25,7 @@ import CatalogView from "../views/CatalogView.vue";
 import CartIcon from "./CartIcon.vue";
 import CartView from "../views/CartView.vue";
 import Search from "./Search.vue";
+import HomeView from "../views/HomeView.vue";
 
 export default {
   name: "Content",
@@ -33,52 +34,58 @@ export default {
     CartView,
     CartIcon,
     Search,
+    HomeView,
   },
 };
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
-@import "../../public/variables";
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
+  
+  @import "../../public/variables";
 
-.header {
-  background: #f1e4e6;
+  .header {
+    background: #F1E4E6;
 
-  &__menu {
-    background: #222222;
-  }
+    &__menu {
+        background: #222222;
+    }
 
-  &__wrap {
-    position: relative;
-  }
+    &__wrap {
+        position: relative;
+    }
 }
 
-.b-menu {
-  display: flex;
-  justify-content: space-between;
-  padding: 18px 16px 19px;
-
-  @media (max-width: 667px) {
-    padding: 18px 0 19px;
-  }
-
-  &__right {
+  .b-menu {
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    width: 189px;
+    padding: 18px 16px 19px;
 
     @media (max-width: 667px) {
-      width: 32px;
+        padding: 18px 0 19px;
     }
+      
 
-    a {
-      &:nth-child(2) {
+    &__right {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 189px;
+
         @media (max-width: 667px) {
-          display: none;
+            width: 32px;
         }
-      }
-    }
-  }
+
+        a {
+            &:nth-child(2) {
+
+                @media (max-width: 667px) {
+                    display: none;
+                }
+            }
+        }        
+    }    
+
 }
+  
 </style>

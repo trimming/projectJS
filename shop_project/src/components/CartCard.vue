@@ -1,6 +1,6 @@
 <template>
   <div class="b-cart__card">
-    <img class="b-cart__cardImg" :src="good.image" alt="product" />
+    <img class="b-cart__cardImg" :src="'img/products/' + good.image" alt="product" />
     <div class="b-cart__cardInfo">
       <div>
         <h2>{{ good.title }}</h2>
@@ -18,7 +18,7 @@
           </li>
         </ul>
       </div>
-      <img src="images/close.svg" alt="close" v-on:click="closeCard" />
+      <img src="img/close.svg" alt="close" v-on:click="closeCard" />
     </div>
   </div>
 </template>

@@ -1,10 +1,10 @@
 <template>
   <div class="b-card">
     <div class="b-card__wrap">
-      <img class="b-card__img" :src="good.image" alt="model" />
+      <img class="b-card__img" :src="'img/products/' + good.image" alt="model" />
       <div class="b-card__wrapBtn">
         <button class="b-card__button" v-on:click="addToCart">
-          <img src="images/cart.svg" alt="cart" />
+          <img src="img/cart.svg" alt="cart" />
           Add to Cart
         </button>
       </div>
@@ -25,7 +25,7 @@ export default {
   props: ["good"],
   methods: {
     addToCart() {
-      this.$emit("add", this.good.id);
+      this.$store.dispatch("loadToCart", this.good);
     },
   },
 };
