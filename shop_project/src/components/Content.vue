@@ -38,51 +38,47 @@ export default {
 </script>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
-  @import "../../public/variables";
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+@import "../../public/variables";
 
-  .header {
-    background: #F1E4E6;
+.header {
+  background: #f1e4e6;
 
-    &__menu {
-        background: #222222;
-    }
+  &__menu {
+    background: #222222;
+  }
 
-    &__wrap {
-        position: relative;
-    }
+  &__wrap {
+    position: relative;
+  }
 }
 
-  .b-menu {
+.b-menu {
+  display: flex;
+  justify-content: space-between;
+  padding: 18px 16px 19px;
+
+  @media (max-width: 667px) {
+    padding: 18px 0 19px;
+  }
+
+  &__right {
     display: flex;
     justify-content: space-between;
-    padding: 18px 16px 19px;
+    align-items: center;
+    width: 189px;
 
     @media (max-width: 667px) {
-        padding: 18px 0 19px;
+      width: 32px;
     }
-      
 
-    &__right {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        width: 189px;
-
+    a {
+      &:nth-child(2) {
         @media (max-width: 667px) {
-            width: 32px;
+          display: none;
         }
-
-        a {
-            &:nth-child(2) {
-
-                @media (max-width: 667px) {
-                    display: none;
-                }
-            }
-        }        
-    }    
-
+      }
+    }
+  }
 }
-  
 </style>
