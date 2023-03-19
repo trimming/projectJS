@@ -21,7 +21,15 @@ export default {
     filterGoods() {
       this.$emit("filter", this.search);
     },
+    goToHandler() {
+        this.$store.commit('goToHandler')
+    }
   },
+  computed: {
+    page() {
+      return this.$store.getters.getCurrentPage;
+    }
+  }
 };
 </script>
 

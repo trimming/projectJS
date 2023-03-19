@@ -29,13 +29,13 @@ export default {
   props: ["good"],
   methods: {
     closeCard() {
-      this.$emit("close", this.good.id);
+      this.$store.dispatch("loadCloseCard", this.good);
     },
   },
 };
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
 @import "../../public/variables";
 .b-cart__card {
@@ -119,20 +119,15 @@ export default {
 
         &:last-child {
           span {
-            margin-left: 24px;
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 22px;
-            color: #656565;
-            border: 1px solid #eaeaea;
-            padding: 0.5px 12px;
-            box-sizing: border-box;
-
-            @media (max-width: 667px) {
-              font-size: 10px;
-              line-height: 12px;
-              padding: 1px 8px;
-            }
+            
+            font-weight: 400;            
+            color: #656565;            
+            
+            // @media (max-width: 667px) {
+            //   font-size: 10px;
+            //   line-height: 12px;
+            //   padding: 1px 8px;
+            // }
           }
         }
       }

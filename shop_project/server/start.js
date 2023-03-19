@@ -34,6 +34,29 @@ app.post('/api/cart', (req, res) => {
     });
 });
 
+app.post('/api/closeCard', (req, res) => {
+    fs.readFile('./server/data/cart.json', 'utf8', (err, data) => {
+        const cart = JSON.parse(data);
+        const list = cart.filter(good =>
+            good.id_product !== req.body.id_product);
+
+        fs.writeFile('./server/data/cart.json', JSON.stringify(list), (err) => {            
+            res.end();
+        });
+    });
+});
+
+app.post('/api/clearCartHandler', (req, res) => {
+    fs.readFile('./server/data/cart.json', 'utf8', (err, data) => {
+        const cart = JSON.parse(data);
+        const list = [];
+
+        fs.writeFile('./server/data/cart.json', JSON.stringify(list), (err) => {            
+            res.end();
+        });
+    });
+});
+
 app.listen(3000, () => {
     console.log('server is running on port 3000...');
 });

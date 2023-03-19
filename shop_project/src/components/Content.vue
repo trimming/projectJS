@@ -3,7 +3,7 @@
     <header class="header__catalog">
       <div class="header__menu">
         <div class="b-menu container">
-          <Search :page="page" />
+          <Search />
           <div class="b-menu__right">
             <a href="product.html"><img src="img/burger.svg" alt="bar" /></a>
             <a href="registration.html"
@@ -13,9 +13,7 @@
           </div>
         </div>
       </div>
-    </header>
-    <!-- <CatalogView :goods="goods" />
-    <CartView :cart_list="cart_list" :total="total" v-on:close="closeCard" /> -->
+    </header>    
     <router-view />
   </div>
 </template>

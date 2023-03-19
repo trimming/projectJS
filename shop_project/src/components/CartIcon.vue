@@ -1,5 +1,5 @@
 <template>
-  <div class="b-menu__rightCart" v-on:click="goToHandler">
+  <div class="b-menu__rightCart">
     <router-link to="/cart" class="b-menu__rightCartIcon"
       ><img src="img/cart.svg" alt="cart"
     /></router-link>
@@ -9,12 +9,12 @@
 
 <script>
 export default {
-  props: ["count"],
+  
   name: "CartIcon",
-  methods: {
-    goToHandler() {
-      this.$emit("go-to", "cart");
-    },
+  computed: {
+    count() {
+      return this.$store.getters.getCartCount;
+    }
   },
 };
 </script>

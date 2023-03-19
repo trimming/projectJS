@@ -17,7 +17,7 @@
         <CartCard v-for="good in cart_list" :good="good" :key="good.id" />
         <div class="cart__buttons">
           <button v-on:click="clearCartHandler">Clear shopping cart</button>
-          <button v-on:click="goToHandler">Continue shopping</button>
+          <router-link to="/catalog" class="search-button" type="button"><button v-on:click="goToHandler">Continue shopping</button></router-link>          
         </div>
       </div>
       <div class="cart__form">
@@ -54,6 +54,17 @@ export default {
   computed: {
     cart_list() {
       return this.$store.getters.getCart;
+    },
+    total() {
+        return this.$store.getters.getTotalCart;
+    }
+  },
+  methods: {
+    clearCartHandler() {
+        this.$store.dispatch('loadClearCart', this.cart_list)
+    },
+    goToHandler() {
+        this.$store.commit('goToHandler')
     }
   }
 };
