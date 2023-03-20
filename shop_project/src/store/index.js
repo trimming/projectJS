@@ -7,12 +7,10 @@ export default createStore({
     search: '',
     cartCount: 0,
     cartTotal: 0,
-    currentPage: '',
+    
   },
   getters: {
-    getCurrentPage(state) {
-      return state.currentPage;
-    },
+    
     getGoods(state) {
       return state.goods;
     },
@@ -33,9 +31,7 @@ export default createStore({
   } 
   },
   mutations: {
-    goToHandler(state) {
-      state.currentPage = 'catalog';
-    },
+    
     setGoods(state, payload) { state.goods = [...state.goods, ...payload] },
     addToCart(state, goodId) {
       const goodInCart = state.cart.find((good) => good.id === goodId)

@@ -5,25 +5,23 @@
       type="text"
       class="goods-search"
       v-bind="search"
-      v-if="page == 'catalog'"
+      
     />
-    <router-link to="/catalog" class="search-button" type="button" v-on:click="filterGoods">
-      <img src="img/search.svg" alt="search" />
-    </router-link>
+    <button class="search-button" type="button" v-on:click="filterGoods" >
+      <img src="img/search.svg" alt="search"  />
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   name: "Search",
-  props: ["search", "page"],
+  
   methods: {
     filterGoods() {
       this.$emit("filter", this.search);
     },
-    goToHandler() {
-        this.$store.commit('goToHandler')
-    }
+    
   },
   computed: {
     page() {

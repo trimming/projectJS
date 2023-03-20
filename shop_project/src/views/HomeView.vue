@@ -104,7 +104,8 @@
       <div class="fetured__cardBlock">
         <Card v-for="good in goods" :good="good" :key="good.id" />
       </div>
-      <a class="fetured__button" href="#">Browse All Product</a>
+      <router-link to="/catalog" ><button class="fetured__button" href="#">Browse All Product</button></router-link>
+      
     </div>
   </div>
 </template>
@@ -384,7 +385,7 @@ export default {
     }
 
     &__button {
-        text-decoration: none;
+        cursor: pointer;
         border: 1px solid #FF6A6A;
         box-sizing: border-box;
         padding: 14.5px 38.5px;
