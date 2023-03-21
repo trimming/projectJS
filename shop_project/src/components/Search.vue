@@ -11,7 +11,6 @@
 <script>
 export default {
   name: "Search",
-
   computed: {
     search: {
       set(value) {

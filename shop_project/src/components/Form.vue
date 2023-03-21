@@ -1,6 +1,11 @@
 <template>
   <form class="b-feedbackBlock__form" action="#">
-    <input id="subscribeName" type="text" placeholder="Enter Your Name" />
+    <input
+      id="subscribeName"
+      type="text"
+      placeholder="Enter Your Name"
+      v-model="user_name"
+    />
     <input id="subscribePhone" type="phone" placeholder="Enter Your Phone" />
     <input id="subscribeEmail" type="email" placeholder="Enter Your Email" />
     <button class="b-feedbackBlock__button">Subscribe</button>
@@ -10,6 +15,13 @@
 <script>
 export default {
   name: "Form",
+  computed: {
+    user_name: {
+      set(value) {
+        return this.$store.commit("setUserName", value);
+      },
+    },
+  },
 };
 </script>
 

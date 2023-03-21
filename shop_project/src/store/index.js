@@ -7,7 +7,7 @@ export default createStore({
     search: '',
     cartCount: 0,
     cartTotal: 0,
-
+    nameRegex: /^([a-zA-Z\s?]+)$/mi,
   },
   getters: {
     getSearch(state) {
@@ -33,6 +33,12 @@ export default createStore({
     }
   },
   mutations: {
+    setUserName(state, userName) {
+      if (state.nameRegex.test(userName)) {
+        console.log(userName);
+      }
+
+    },
     setSearch(state, search) {
       state.search = search
     },
