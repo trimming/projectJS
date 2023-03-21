@@ -12,5 +12,15 @@ Vue.component('search_comp', {
             this.$emit('filter', this.search)
         },
 
+    },
+    computed: {
+        search: {
+            set(value) {
+                return this.$store.commit('setSearch', value)
+            },
+            get() {
+                return this.$store.getters.getSearch
+            }
+        }
     }
 })

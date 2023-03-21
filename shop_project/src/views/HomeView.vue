@@ -1,26 +1,6 @@
 <template>
   <div>
     <div class="header">
-      <!-- <div class="header__menu">
-        <div class="b-menu container">
-          <div class="b-menu__left">
-            <a href="index.html"><img src="img/logo.svg" alt="logo" /></a>
-            <a href="catalog.html"
-              ><img src="img/search.svg" alt="search"
-            /></a>
-          </div>
-          <div class="b-menu__right">
-            <a href="product.html"><img src="img/burger.svg" alt="bar" /></a>
-            <a href="registration.html"
-              ><img src="img/user.svg" alt="user"
-            /></a>
-            <div class="b-menu__rightCart">
-              <a href="Cart.html"><img src="img/cart.svg" alt="cart" /></a>
-              <span class="b-menu__quantityCart"></span>
-            </div>
-          </div>
-        </div>
-      </div> -->
       <div class="header__wrap">
         <div class="header__content">
           <img
@@ -104,8 +84,11 @@
       <div class="fetured__cardBlock">
         <Card v-for="good in goods" :good="good" :key="good.id" />
       </div>
-      <router-link to="/catalog" ><button class="fetured__button" href="#">Browse All Product</button></router-link>
-      
+      <router-link to="/catalog"
+        ><button class="fetured__button" href="#">
+          Browse All Product
+        </button></router-link
+      >
     </div>
   </div>
 </template>
@@ -114,15 +97,15 @@
 import Card from "../components/Card.vue";
 
 export default {
-  name:'Home',
+  name: "Home",
   components: {
     Card,
   },
   computed: {
     goods() {
       return this.$store.getters.getGoods;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -130,271 +113,271 @@ export default {
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
 @import "../../public/variables";
 .header__content {
-    display: flex;
-    justify-content: center;
-    margin: 0 auto;
-    max-height: 764px;
-    max-width: 1600px;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  max-height: 764px;
+  max-width: 1600px;
+
+  @media (max-width: 667px) {
+    height: 363px;
+  }
+
+  &Image {
+    display: block;
+    width: 50%;
+    height: inherit;
+    object-fit: contain;
 
     @media (max-width: 667px) {
-        height: 363px;
+      display: none;
+    }
+  }
+
+  &Heading {
+    box-sizing: border-box;
+    margin-left: 63px;
+    width: 50%;
+    align-self: center;
+    height: inherit;
+
+    @media (max-width: 1024px) {
+      margin-left: 39px;
     }
 
-    &Image {
-        display: block;
-        width: 50%;
-        height: inherit;
-        object-fit: contain;
-
-        @media (max-width: 667px) {
-            display: none;
-        }
+    @media (max-width: 667px) {
+      padding-top: 148px;
+      margin: 0 auto;
+      width: inherit;
     }
 
-    &Heading {
-        box-sizing: border-box;
-        margin-left: 63px;
-        width: 50%;
-        align-self: center;
-        height: inherit;
-
-        @media (max-width: 1024px) {
-            margin-left: 39px;
-        }
-
-        @media (max-width: 667px) {
-            padding-top: 148px;
-            margin: 0 auto;
-            width: inherit;
-        }
-
-        &Text {
-            border-left: #F16D7F 12px solid;
-            padding-left: 16px;
-        }
+    &Text {
+      border-left: #f16d7f 12px solid;
+      padding-left: 16px;
     }
+  }
 }
 
 .header__brand {
-    font-weight: 900;
-    line-height: 58px;
-    color: #222222;
-    font-size: 48px;
+  font-weight: 900;
+  line-height: 58px;
+  color: #222222;
+  font-size: 48px;
 
-    @media (max-width: 1024px) {
-        font-weight: 700;
-        font-size: 44px;
-        line-height: 53px;
-    }
+  @media (max-width: 1024px) {
+    font-weight: 700;
+    font-size: 44px;
+    line-height: 53px;
+  }
 
-    @media (max-width: 667px) {
-        font-weight: 700;
-        font-size: 38px;
-        line-height: 30px;
-    }
+  @media (max-width: 667px) {
+    font-weight: 700;
+    font-size: 38px;
+    line-height: 30px;
+  }
 }
 
 .header__lux {
-    font-weight: 700;
-    font-size: 31px;
-    line-height: 37px;
+  font-weight: 700;
+  font-size: 31px;
+  line-height: 37px;
 
-    @media (max-width: 1024px) {
-        font-size: 24px;
-        line-height: 29px;
-    }
+  @media (max-width: 1024px) {
+    font-size: 24px;
+    line-height: 29px;
+  }
 
-    @media (max-width: 667px) {
-        font-size: 20px;
-        line-height: 24px;
-    }
+  @media (max-width: 667px) {
+    font-size: 20px;
+    line-height: 24px;
+  }
 }
 .b-hiddenMenu {
-    background: #FFFFFF;
-    width: 232px;
-    padding-left: 33px;
-    box-sizing: border-box;
-    height: 100%;
-    box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
+  background: #ffffff;
+  width: 232px;
+  padding-left: 33px;
+  box-sizing: border-box;
+  height: 100%;
+  box-shadow: 6px 4px 35px rgba(0, 0, 0, 0.21);
 
-    &__close {
-        display: flex;
-        justify-content: end;
-        padding-right: 16px;
-        padding-top: 16px;
+  &__close {
+    display: flex;
+    justify-content: end;
+    padding-right: 16px;
+    padding-top: 16px;
+  }
+
+  &__heading {
+    @include kitProp(#000000, 700);
+  }
+
+  &__list {
+    list-style-type: none;
+    padding-left: 21px;
+
+    li {
+      padding-bottom: 11px;
     }
+  }
 
-    &__heading {
-        @include kitProp(#000000, 700);
+  &__item {
+    text-decoration: none;
+    @include kitProp(#6f6e6e, 400);
+  }
+
+  &__category {
+    padding-bottom: 12px;
+    padding-top: 20px;
+    @include kitProp($colorPink, 400);
+  }
+
+  &_active {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    @media (max-width: 1599px) {
+      display: none;
     }
-
-    &__list {
-        list-style-type: none;
-        padding-left: 21px;
-
-        li {
-            padding-bottom: 11px;
-        }
-    }
-
-    &__item {
-        text-decoration: none;
-        @include kitProp(#6F6E6E, 400);
-    }
-
-    &__category {
-        padding-bottom: 12px;
-        padding-top: 20px;
-        @include kitProp($colorPink, 400);
-    }
-
-    &_active {
-        position: absolute;
-        top: 0;
-        right: 0;
-
-        @media (max-width: 1599px) {
-            display: none;
-        }
-    }
+  }
 }
 .category {
-    display: grid;
-    grid-gap: 30px;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 260px 180px;
-    padding-top: 65px;
-    padding-bottom: 96px;
+  display: grid;
+  grid-gap: 30px;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 260px 180px;
+  padding-top: 65px;
+  padding-bottom: 96px;
 
-    @media (max-width: 1024px) {
-        grid-gap: 20px;
-        grid-template-rows: 167px 116px;
-        padding-top: 20px;
-        padding-bottom: 155px;
+  @media (max-width: 1024px) {
+    grid-gap: 20px;
+    grid-template-rows: 167px 116px;
+    padding-top: 20px;
+    padding-bottom: 155px;
+  }
+
+  @media (max-width: 667px) {
+    grid-gap: 32px;
+    grid-template-rows: 248px 248px 248px 111px;
+    grid-template-columns: 1fr;
+    padding-top: 64px;
+    padding-bottom: 64px;
+  }
+
+  &__items {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  &__heading {
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 29px;
+    color: $colorPink;
+    text-align: center;
+
+    &Text {
+      font-weight: 400;
+      line-height: 19px;
+      color: #ffffff;
+      font-size: 16px;
     }
-
-    @media (max-width: 667px) {
-        grid-gap: 32px;
-        grid-template-rows: 248px 248px 248px 111px;
-        grid-template-columns: 1fr;
-        padding-top: 64px;
-        padding-bottom: 64px;
-    }
-
-    &__items {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
-    &__heading {
-        font-weight: 700;
-        font-size: 24px;
-        line-height: 29px;
-        color: $colorPink;
-        text-align: center;
-
-        &Text {
-            font-weight: 400;
-            line-height: 19px;
-            color: #FFFFFF;
-            font-size: 16px;
-        }
-    }
+  }
 }
 
 .item__women {
-    background: url(../../public/img/women.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+  background: url(../../public/img/women.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .item__men {
-    background: url(../../public/img/men.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+  background: url(../../public/img/men.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .item__kids {
-    background: url(../../public/img/kids.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+  background: url(../../public/img/kids.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .item__accesories {
-    grid-column: 1/4;
-    background: url(../../public/img/accesories.jpg);
-    background-size: cover;
-    background-repeat: no-repeat;
+  grid-column: 1/4;
+  background: url(../../public/img/accesories.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
 
-    @media (max-width: 667px) {
-        grid-column: 1/2;
-    }
+  @media (max-width: 667px) {
+    grid-column: 1/2;
+  }
 }
 .fetured {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-bottom: 96px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 96px;
 
-    &__header {
-        padding-bottom: 49px;
+  &__header {
+    padding-bottom: 49px;
 
-        @media (max-width: 1024px) {
-            padding-bottom: 73px;
-        }
-
-        @media (max-width: 667px) {
-            padding-bottom: 64px;
-        }
+    @media (max-width: 1024px) {
+      padding-bottom: 73px;
     }
 
-    &__heading {
-        font-weight: 400;
-        line-height: 36px;
-        color: #222222;
-        font-size: 30px;
-        text-align: center;
-        padding-bottom: 6px;
+    @media (max-width: 667px) {
+      padding-bottom: 64px;
+    }
+  }
 
-        &Text {
-            text-align: center;
-            width: 100%;
-            @include kitProp(#9F9F9F, 400);
-        }
+  &__heading {
+    font-weight: 400;
+    line-height: 36px;
+    color: #222222;
+    font-size: 30px;
+    text-align: center;
+    padding-bottom: 6px;
+
+    &Text {
+      text-align: center;
+      width: 100%;
+      @include kitProp(#9f9f9f, 400);
+    }
+  }
+
+  &__cardBlock {
+    display: grid;
+    grid-gap: 30px;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    padding-bottom: 48.5px;
+
+    @media (max-width: 1024px) {
+      grid-template-columns: repeat(2, 1fr);
+      grid-gap: 16px;
+      grid-template-rows: repeat(3, 1fr);
     }
 
-    &__cardBlock {
-        display: grid;
-        grid-gap: 30px;
-        grid-template-columns: repeat(3, 1fr);
-        grid-template-rows: repeat(2, 1fr);
-        padding-bottom: 48.5px;
-
-        @media (max-width: 1024px) {
-            grid-template-columns: repeat(2, 1fr);
-            grid-gap: 16px;
-            grid-template-rows: repeat(3, 1fr);
-        }
-
-        @media (max-width: 667px) {
-            grid-template-columns: 1fr;
-            grid-template-rows: repeat(6, 1fr);
-            padding-bottom: 41px;
-        }
+    @media (max-width: 667px) {
+      grid-template-columns: 1fr;
+      grid-template-rows: repeat(6, 1fr);
+      padding-bottom: 41px;
     }
+  }
 
-    &__button {
-        cursor: pointer;
-        border: 1px solid #FF6A6A;
-        box-sizing: border-box;
-        padding: 14.5px 38.5px;
-        color: #FF6A6A;
+  &__button {
+    cursor: pointer;
+    border: 1px solid #ff6a6a;
+    box-sizing: border-box;
+    padding: 14.5px 38.5px;
+    color: #ff6a6a;
 
-        &:hover {
-            background: #F16D7F;
-            color: #FFFFFF;
-        }
+    &:hover {
+      background: #f16d7f;
+      color: #ffffff;
     }
+  }
 }
 </style>

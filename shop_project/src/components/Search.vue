@@ -1,14 +1,9 @@
 <template>
   <div class="b-menu__left">
     <router-link to="/"><img src="img/logo.svg" alt="logo" /></router-link>
-    <input
-      type="text"
-      class="goods-search"
-      v-bind="search"
-      
-    />
-    <button class="search-button" type="button" v-on:click="filterGoods" >
-      <img src="img/search.svg" alt="search"  />
+    <input type="text" class="goods-search" v-model="search" />
+    <button class="search-button" type="button">
+      <img src="img/search.svg" alt="search" />
     </button>
   </div>
 </template>
@@ -16,18 +11,17 @@
 <script>
 export default {
   name: "Search",
-  
-  methods: {
-    filterGoods() {
-      this.$emit("filter", this.search);
-    },
-    
-  },
+
   computed: {
-    page() {
-      return this.$store.getters.getCurrentPage;
-    }
-  }
+    search: {
+      set(value) {
+        return this.$store.commit("setSearch", value);
+      },
+      get() {
+        return this.$store.getters.getSearch;
+      },
+    },
+  },
 };
 </script>
 
