@@ -5,10 +5,34 @@
       type="text"
       placeholder="Enter Your Name"
       v-model="user_name"
-      :class="[{active: match}, {err: !match && user_name}, {def: !match} ]"
+      :class="[
+        { active: match },
+        { err: !match && user_name },
+        { def: !match },
+      ]"
     />
-    <input id="subscribePhone" type="phone" placeholder="Enter Your Phone"  :class="[{active: match}, {err: !match && user_name}, {def: !match} ]"/>
-    <input id="subscribeEmail" type="email" placeholder="Enter Your Email" :class="[{active: match}, {err: !match && user_name}, {def: !match} ]"/>
+    <input
+      id="subscribePhone"
+      type="phone"
+      placeholder="Enter Your Phone"
+      v-model="user_phone"
+      :class="[
+        { active: match },
+        { err: !match && user_phone },
+        { def: !match },
+      ]"
+    />
+    <input
+      id="subscribeEmail"
+      type="email"
+      placeholder="Enter Your Email"
+      v-model="user_email"
+      :class="[
+        { active: match },
+        { err: !match && user_email },
+        { def: !match },
+      ]"
+    />
     <button class="b-feedbackBlock__button">Subscribe</button>
   </form>
 </template>
@@ -17,10 +41,10 @@
 export default {
   data() {
     return {
-      activeClass: 'active',
-      errorClass: 'err',
-      defaultClass: 'def'
-    }
+      activeClass: "active",
+      errorClass: "err",
+      defaultClass: "def",
+    };
   },
   name: "Form",
   computed: {
@@ -29,16 +53,26 @@ export default {
         return this.$store.commit("setUserName", value);
       },
       get() {
-        return this.$store.getters.getUserName;
-      }
+        return this.$store.getters.getInputName.text;
+      },
     },
     nameRegex() {
-      return this.$store.getters.getNameRegex;      
+      return this.$store.getters.getInputName.regex;
+    },
+    user_phone: {
+      set(value) {
+        return this.$store.commit("setUserPhone", value);
+      },
+      get() {
+        return this.$store.getters.getUserPhone;
+      },
+    },
+    phoneRegex() {
+      return this.$store.getters.getPhoneRegex;
     },
     match() {
       return this.nameRegex.test(this.user_name);
     },
-    
   },
 };
 </script>
@@ -65,9 +99,8 @@ export default {
     border-top-right-radius: 50px;
     margin-bottom: 15px;
     margin-top: 15px;
-    
   }
-  
+
   button {
     @include kitProp(#ffffff, 400);
     text-decoration: none;
@@ -88,11 +121,11 @@ export default {
   border: none;
 }
 .active {
-  border:  solid 3px #6bf556;
+  border: solid 3px #6bf556;
   background: #b9f3b0;
 }
 .err {
-  border: solid 3px #E05C6E;
+  border: solid 3px #e05c6e;
   background: #ffd9d9;
 }
 </style>

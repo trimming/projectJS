@@ -7,8 +7,15 @@ export default createStore({
     search: '',
     cartCount: 0,
     cartTotal: 0,
-    nameRegex: new RegExp('^([a-zA-Z \\s?]+)$','mi'),
-    userName: '',
+    inputName: {
+      regex: new RegExp('^([a-zA-Z \\s?]+)$', 'mi'),
+      text: '',
+    },
+    inputPhone: {
+      text: '',
+      regex: new RegExp('^\\+7\\(\\d{3}\\)\\d{3}-\\d{4}$')
+    }
+
   },
   getters: {
     getSearch(state) {
@@ -32,18 +39,24 @@ export default createStore({
         acc + curr.total, initialValue);
       return state.cartTotal;
     },
-    getUserName(state) {
-      return state.userName;
+    getInputName(state) {
+      return state.inputName;
     },
-    getNameRegex(state) {
-      return state.nameRegex;
-    }
+    getInputPhone(state) {
+      return state.inputPhone;
+    },
+
   },
   mutations: {
-    setUserName(state, inputName) {
-      state.userName = inputName;
-      console.log(state.userName);
-      console.log(state.nameRegex.test(state.userName));
+    setUserName(state, input) {
+      state.inputName.text = input;
+      console.log(state.inputName.text);
+      console.log(state.inputName.regex.test(state.inputName.text));
+    },
+    setUserPhone(state, input) {
+      state.inputPhone.text = input;
+      console.log(state.inputPhone.text);
+      console.log(state.inputPhone.text.test(state.inputPhone.text));
     },
     setSearch(state, search) {
       state.search = search
