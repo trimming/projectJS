@@ -6,9 +6,9 @@
       placeholder="Enter Your Name"
       v-model="user_name"
       :class="[
-        { active: match },
-        { err: !match && user_name },
-        { def: !match },
+        { active: matchName },
+        { err: !matchName && user_name },
+        { def: !matchName },
       ]"
     />
     <input
@@ -17,9 +17,9 @@
       placeholder="Enter Your Phone"
       v-model="user_phone"
       :class="[
-        { active: match },
-        { err: !match && user_phone },
-        { def: !match },
+        { active: matchPhone },
+        { err: !matchPhone && user_phone },
+        { def: !user_phone },
       ]"
     />
     <input
@@ -64,14 +64,17 @@ export default {
         return this.$store.commit("setUserPhone", value);
       },
       get() {
-        return this.$store.getters.getUserPhone;
+        return this.$store.getters.getInputPhone.text;
       },
     },
     phoneRegex() {
-      return this.$store.getters.getPhoneRegex;
+      return this.$store.getters.getInputPhone.regex;
     },
-    match() {
+    matchName() {
       return this.nameRegex.test(this.user_name);
+    },
+    matchPhone() {
+      return this.phoneRegex.test(this.user_phone);
     },
   },
 };

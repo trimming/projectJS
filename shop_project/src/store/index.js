@@ -12,8 +12,8 @@ export default createStore({
       text: '',
     },
     inputPhone: {
-      text: '',
-      regex: new RegExp('^\\+7\\(\\d{3}\\)\\d{3}-\\d{4}$')
+      regex: new RegExp('(^\\+([0-9]{0,1})?(\\([0-9]{0,3})?(\\)[0-9]{0,3})?(-[0-9]{0,2})?(-[0-9]{0,2})?$)|(^.*$)', 'gm'),
+      text: '',      
     }
 
   },
@@ -55,8 +55,8 @@ export default createStore({
     },
     setUserPhone(state, input) {
       state.inputPhone.text = input;
-      console.log(state.inputPhone.text);
-      console.log(state.inputPhone.text.test(state.inputPhone.text));
+      console.log( state.inputPhone.text);
+      console.log(state.inputPhone.regex.test(state.inputPhone.text));
     },
     setSearch(state, search) {
       state.search = search
