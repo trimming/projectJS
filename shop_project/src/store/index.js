@@ -13,9 +13,12 @@ export default createStore({
     },
     inputPhone: {
       regex: new RegExp('(^\\+([0-9]{0,1})?(\\([0-9]{0,3})?(\\)[0-9]{0,3})?(-[0-9]{0,2})?(-[0-9]{0,2})?$)|(^.*$)', 'gm'),
-      text: '',      
-    }
-
+      text: '',
+    },
+    inputEmail: {
+      regex: new RegExp('^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$', 'mi'),
+      text: '',
+    },
   },
   getters: {
     getSearch(state) {
@@ -45,7 +48,9 @@ export default createStore({
     getInputPhone(state) {
       return state.inputPhone;
     },
-
+    getInputEmail(state) {
+      return state.inputEmail;
+    }
   },
   mutations: {
     setUserName(state, input) {
@@ -55,8 +60,13 @@ export default createStore({
     },
     setUserPhone(state, input) {
       state.inputPhone.text = input;
-      console.log( state.inputPhone.text);
+      console.log(state.inputPhone.text);
       console.log(state.inputPhone.regex.test(state.inputPhone.text));
+    },
+    setUserEmail(state, input) {
+      state.inputEmail.text = input;
+      console.log(state.inputEmail.text);
+      console.log(state.inputEmail.regex.test(state.inputEmail.text));
     },
     setSearch(state, search) {
       state.search = search

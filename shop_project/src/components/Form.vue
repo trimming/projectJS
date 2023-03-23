@@ -11,6 +11,13 @@
         { def: !matchName },
       ]"
     />
+    <span
+      class="subscribe"
+      id="nameMessage"
+      style="color: #e05c6e"
+      v-if="!matchName && user_name"
+      >Имя должно содержать только буквы!</span
+    >
     <input
       id="subscribePhone"
       type="phone"
@@ -22,17 +29,31 @@
         { def: !user_phone },
       ]"
     />
+    <span
+      class="subscribe"
+      id="phoneMessage"
+      style="color: #e05c6e"
+      v-if="!matchPhone && user_phone"
+      >Телефон должен быть формата +7(000)000-0000!</span
+    >
     <input
       id="subscribeEmail"
       type="email"
       placeholder="Enter Your Email"
       v-model="user_email"
       :class="[
-        { active: match },
-        { err: !match && user_email },
-        { def: !match },
+        { active: matchEmail },
+        { err: !matchEmail && user_email },
+        { def: !matchEmail },
       ]"
     />
+    <span
+      class="subscribe"
+      id="emailMessage"
+      style="color: #e05c6e"
+      v-if="!matchEmail && user_email"
+      >Почта введена не корректно!</span
+    >
     <button class="b-feedbackBlock__button">Subscribe</button>
   </form>
 </template>
@@ -59,6 +80,10 @@ export default {
     nameRegex() {
       return this.$store.getters.getInputName.regex;
     },
+    matchName() {
+      return this.nameRegex.test(this.user_name);
+    },
+
     user_phone: {
       set(value) {
         return this.$store.commit("setUserPhone", value);
@@ -70,11 +95,23 @@ export default {
     phoneRegex() {
       return this.$store.getters.getInputPhone.regex;
     },
-    matchName() {
-      return this.nameRegex.test(this.user_name);
-    },
     matchPhone() {
       return this.phoneRegex.test(this.user_phone);
+    },
+
+    user_email: {
+      set(value) {
+        return this.$store.commit("setUserEmail", value);
+      },
+      get() {
+        return this.$store.getters.getInputEmail.text;
+      },
+    },
+    emailRegex() {
+      return this.$store.getters.getInputEmail.regex;
+    },
+    matchEmail() {
+      return this.emailRegex.test(this.user_email);
     },
   },
 };
