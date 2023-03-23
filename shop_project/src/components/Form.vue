@@ -1,5 +1,5 @@
 <template>
-  <form class="b-feedbackBlock__form" action="#">
+  <div class="b-feedbackBlock__form" action="#">
     <input
       id="subscribeName"
       type="text"
@@ -54,8 +54,8 @@
       v-if="!matchEmail && user_email"
       >Почта введена не корректно!</span
     >
-    <button class="b-feedbackBlock__button">Subscribe</button>
-  </form>
+    <button class="b-feedbackBlock__button" v-on:click="sendForm">Subscribe</button>
+  </div>
 </template>
 
 <script>
@@ -113,7 +113,21 @@ export default {
     matchEmail() {
       return this.emailRegex.test(this.user_email);
     },
+    userData() {
+      if(this.matchName && this.matchPhone && this.matchEmail) {
+        return new Object({
+          "name": `${this.$store.getters.getInputName.text}`,
+          "phone": `${this.$store.getters.getInputPhone.text}`,
+          "email": `${this.$store.getters.getInputEmail.text}`
+        });
+      }
+    }
   },
+  methods: {
+    sendForm() {
+      this.$store.dispatch("loadDataForm",this.userData);
+    }
+  }
 };
 </script>
 

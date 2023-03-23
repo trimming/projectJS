@@ -4,6 +4,7 @@ export default createStore({
   state: {
     goods: [],
     cart: [],
+    form: [],
     search: '',
     cartCount: 0,
     cartTotal: 0,
@@ -12,7 +13,7 @@ export default createStore({
       text: '',
     },
     inputPhone: {
-      regex: new RegExp('(^\\+([0-9]{0,1})?(\\([0-9]{0,3})?(\\)[0-9]{0,3})?(-[0-9]{0,2})?(-[0-9]{0,2})?$)|(^.*$)', 'gm'),
+      regex: new RegExp('^\\+7\\([0-9]{3}\\)[0-9]{3}-[0-9]{4}$', 'm'),
       text: '',
     },
     inputEmail: {
@@ -54,19 +55,17 @@ export default createStore({
   },
   mutations: {
     setUserName(state, input) {
-      state.inputName.text = input;
-      console.log(state.inputName.text);
-      console.log(state.inputName.regex.test(state.inputName.text));
+      state.inputName.text = input;      
     },
     setUserPhone(state, input) {
-      state.inputPhone.text = input;
-      console.log(state.inputPhone.text);
-      console.log(state.inputPhone.regex.test(state.inputPhone.text));
+      state.inputPhone.text = input;      
     },
     setUserEmail(state, input) {
-      state.inputEmail.text = input;
-      console.log(state.inputEmail.text);
-      console.log(state.inputEmail.regex.test(state.inputEmail.text));
+      state.inputEmail.text = input;      
+    },
+    setDataForm(state, userData) {
+      state.form.push(userData);
+      
     },
     setSearch(state, search) {
       state.search = search
@@ -140,7 +139,13 @@ export default createStore({
           console.log(good)
         })
     },
-
+    loadDataForm({ commit }, userData) {
+      return fetch('/api/sendDataForm', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(userData) })
+        .then((response) => {
+          commit('setDataForm', userData)
+          console.log(userData)
+        })
+    },
   },
   modules: {
   }
