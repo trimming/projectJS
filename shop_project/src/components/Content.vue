@@ -9,7 +9,7 @@
             <a href="registration.html"
               ><img src="img/user.svg" alt="user"
             /></a>
-            <CartIcon :count="count" />
+            <CartIcon />
           </div>
         </div>
       </div>
@@ -38,10 +38,10 @@ export default {
 </script>
 
 <style lang="scss">
-  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');
-  
+  @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap');  
   @import "../../public/variables";
 
+  
   .header {
     background: #F1E4E6;
 

@@ -232,6 +232,7 @@ export default {
     margin: 0 auto;
     padding: 12px 15px;
     margin-top: 48px;
+    margin-bottom: 96px;
 
     a {
       text-decoration: none;

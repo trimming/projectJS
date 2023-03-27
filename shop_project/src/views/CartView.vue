@@ -16,7 +16,7 @@
       <div class="cart__goods">
         <CartCard v-for="good in cart_list" :good="good" :key="good.id" />
         <div class="cart__buttons">
-          <button v-on:click="clearCartHandler">Clear shopping cart</button>
+          <button v-on:click="clearCartHandler" type="button">Clear shopping cart</button>
           <router-link to="/catalog" class="search-button" type="button"><button v-on:click="goToHandler">Continue shopping</button></router-link>          
         </div>
       </div>
@@ -157,6 +157,7 @@ export default {
                     text-transform: none;
                 }
             }
+            
         }
 
         .cart__proceed {
@@ -261,6 +262,12 @@ export default {
                     max-width: 144px;
                 }
             }
+            button:hover {background-color: #7f817f}
+
+      button:active {
+      background-color: #7f817f;  
+      transform: translateY(4px);
+      }
         }
     }
 }

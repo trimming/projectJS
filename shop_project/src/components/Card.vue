@@ -3,7 +3,7 @@
     <div class="b-card__wrap">
       <img class="b-card__img" :src="'img/products/' + good.image" alt="model" />
       <div class="b-card__wrapBtn">
-        <button class="b-card__button" v-on:click="addToCart">
+        <button class="b-card__button" type="button" v-on:click="addToCart">
           <img src="img/cart.svg" alt="cart" />
           Add to Cart
         </button>
@@ -70,9 +70,16 @@ export default {
         border: 1px solid #ffffff;
         cursor: pointer;
 
+      
         img {
           margin-right: 11px;
         }
+      }
+      button:hover {background-color: #7f817f}
+
+      button:active {
+      background-color: #7f817f;  
+      transform: translateY(4px);
       }
     }
   }

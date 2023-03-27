@@ -17,7 +17,7 @@ export default createStore({
       text: '',
     },
     inputEmail: {
-      regex: new RegExp('^([a-z0-9_\.-]+)@([a-z0-9_\.-]+)\.([a-z\.]{2,6})$', 'mi'),
+      regex: new RegExp('^([a-z0-9_\\.-]+)@([a-z0-9_\\.-]+)\\.([a-z\\.]{2,6})$', 'mi'),
       text: '',
     },
   },
@@ -119,7 +119,7 @@ export default createStore({
       return fetch('/api/cart', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(good) })
         .then((response) => {
           commit('addToCart', good.id)
-          // dispatch('setStat', { type: 'add', id: good.id})
+          dispatch('setStat', { type: 'add', id: good.id})
           console.log(good)
         })
     },
@@ -127,7 +127,7 @@ export default createStore({
       return fetch('/api/closeCard', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(good) })
         .then((response) => {
           commit('closeCard', good.id)
-          // dispatch('setStat', { type: 'add', id: good.id})
+          dispatch('setStat', { type: 'remove', id: good.id})
           console.log(good)
         })
     },
@@ -135,15 +135,22 @@ export default createStore({
       return fetch('/api/clearCartHandler', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(good) })
         .then((response) => {
           commit('clearCartHandler', good.id)
-          // dispatch('setStat', { type: 'add', id: good.id})
+          dispatch('setStat', { type: 'remove', id: good.id})
           console.log(good)
         })
+    },
+    setStat({commit}, stat) {
+      return fetch('/api/stat', {method: 'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify(stat)})
+        .then((response) => {
+          console.log(stat)
+        })
+        
     },
     loadDataForm({ commit }, userData) {
       return fetch('/api/sendDataForm', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(userData) })
         .then((response) => {
           commit('setDataForm', userData)
-          console.log(userData)
+          alert('Вы подписались на рассылку!')
         })
     },
   },

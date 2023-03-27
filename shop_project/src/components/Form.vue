@@ -54,7 +54,7 @@
       v-if="!matchEmail && user_email"
       >Почта введена не корректно!</span
     >
-    <button class="b-feedbackBlock__button" v-on:click="sendForm">Subscribe</button>
+    <button class="b-feedbackBlock__button" type="button" v-on:click="sendForm">Subscribe</button>
   </div>
 </template>
 
@@ -125,7 +125,9 @@ export default {
   },
   methods: {
     sendForm() {
+      if(this.userData){
       this.$store.dispatch("loadDataForm",this.userData);
+      }
     }
   }
 };
@@ -169,6 +171,12 @@ export default {
     display: block;
     border: none;
   }
+  button:hover {background-color: #a43141}
+
+      button:active {
+      background-color: #a43141;  
+      transform: translateY(4px);
+      }
 }
 .def {
   background: #e1e1e1;

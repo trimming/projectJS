@@ -112,6 +112,7 @@ export default {
 <style lang="scss" scoped>
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
 @import "../../public/variables";
+
 .header__content {
   display: flex;
   justify-content: center;
@@ -225,9 +226,7 @@ export default {
     @include kitProp(#6f6e6e, 400);
   }
 
-  &__category {
-    padding-bottom: 12px;
-    padding-top: 20px;
+  &__category {    
     @include kitProp($colorPink, 400);
   }
 

@@ -73,6 +73,28 @@ app.post('/api/sendDataForm', (req, res) => {
         });
     });
 });
+app.get('/api/stat', (req, res) => {
+    fs.readFile('./server/data/stat.json', 'utf8', (err, data) => {
+        res.send(data);
+    });
+  });
+
+app.post('/api/stat', (req, res) => {
+    fs.readFile('./server/data/stat.json', 'utf8', (err, data) => {
+      const stat = JSON.parse(data);
+
+      const item = {...req.body, date: new Date()};
+    
+      stat.push(item);
+
+      fs.writeFile('./server/data/stat.json', JSON.stringify(stat), (err) => {
+        console.log('done');
+        res.send('ok')
+      });
+
+  });
+
+}); 
 app.listen(3000, () => {
     console.log('server is running on port 3000...');
 });
