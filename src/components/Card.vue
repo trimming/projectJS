@@ -1,0 +1,139 @@
+<template>
+  <div class="b-card">
+    <div class="b-card__wrap">
+      <img class="b-card__img" :src="'img/products/' + good.image" alt="model" />
+      <div class="b-card__wrapBtn">
+        <button class="b-card__button" type="button" v-on:click="addToCart">
+          <img src="img/cart.svg" alt="cart" />
+          Add to Cart
+        </button>
+      </div>
+    </div>
+    <div class="b-card__info">
+      <h4 class="b-card__infoItem">{{ good.title }}</h4>
+      <p class="b-card__infoText">{{ good.text }}</p>
+      <p class="b-card__infoPrice">
+        $<span class="b-ard__price">{{ good.price }}</span>
+      </p>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Card",
+  props: ["good"],
+  methods: {
+    addToCart() {
+      this.$store.dispatch("loadToCart", this.good);
+    },
+  },
+};
+</script>
+
+<style lang="scss">
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&display=swap");
+@import "../../public/variables";
+.b-card {
+  &:hover {
+    .b-card__wrapBtn {
+      display: flex;
+    }
+  }
+
+  &__wrap {
+    position: relative;
+
+    .b-card__img {
+      display: block;
+      width: 100%;
+    }
+
+    &Btn {
+      display: none;
+      position: absolute;
+      justify-content: center;
+      align-items: center;
+      background: rgba(58, 56, 56, 0.86);
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+
+      button {
+        display: flex;
+        align-items: center;
+        @include kitProp(#ffffff, 400);
+        box-sizing: border-box;
+        padding: 10px 13px;
+        background: none;
+        border: 1px solid #ffffff;
+        cursor: pointer;
+
+      
+        img {
+          margin-right: 11px;
+        }
+      }
+      button:hover {background-color: #7f817f}
+
+      button:active {
+      background-color: #7f817f;  
+      transform: translateY(4px);
+      }
+    }
+  }
+
+  &__info {
+    background: #f8f8f8;
+    padding-top: 25px;
+    padding-bottom: 20px;
+    padding-left: 16px;
+
+    &Item {
+      font-weight: 400;
+      line-height: 16px;
+      color: #000000;
+      font-size: 13px;
+    }
+
+    &Text {
+      padding-top: 13px;
+      @include kitProp(#5d5d5d, 300);
+    }
+
+    &Price {
+      font-size: 16px;
+      line-height: 19px;
+      font-weight: 400;
+      color: #f16d7f;
+      padding-top: 18px;
+    }
+  }
+
+  &_notActive_size_ml {
+    @media (max-width: 1024px) {
+      display: none;
+    }
+  }
+
+  &_notActive_size_s {
+    @media (max-width: 667px) {
+      display: none;
+    }
+  }
+
+  &_active_size_s {
+    @media (max-width: 667px) {
+      display: block;
+    }
+  }
+
+  &_location {
+    @media (max-width: 1024px) {
+      grid-row-start: 1;
+      grid-column-start: 1;
+    }
+  }
+}
+</style>
