@@ -2,9 +2,9 @@
   <div class="b-menu__left">
     <router-link to="/"><img src="img/logo.svg" alt="logo" /></router-link>
     <input type="text" class="goods-search" v-model="search" />
-    <button class="search-button" type="button">
+    <router-link to="/catalog" class="search-button" type="button">
       <img src="img/search.svg" alt="search" />
-    </button>
+    </router-link>
   </div>
 </template>
 

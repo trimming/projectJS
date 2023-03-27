@@ -102,7 +102,17 @@ export default {
     Card,
   },
   computed: {
+    search() {
+      return this.$store.getters.getSearch
+        ? new RegExp(this.$store.getters.getSearch, "gi")
+        : false;
+    },
     goods() {
+      if (this.search) {
+        return this.$store.getters.getGoods.filter((good) =>
+          this.search.test(good.title)
+        );
+      }
       return this.$store.getters.getGoods;
     },
   },
